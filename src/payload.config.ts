@@ -60,6 +60,10 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      max: 3, // Maximum number of connections in pool (Supabase free tier limit)
+      min: 1, // Minimum number of connections
+      idleTimeoutMillis: 10000, // Close idle connections after 10 seconds
+      connectionTimeoutMillis: 5000, // Timeout when connecting to database
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
