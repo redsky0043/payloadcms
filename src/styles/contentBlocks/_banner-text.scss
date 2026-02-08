@@ -1,0 +1,39 @@
+@use "../config" as *;
+
+.banner-text {
+  @include make-spacer(my, 10);
+
+  &__inner {
+    @include make-spacer(p, 3);
+    @include make-spacer(p, 10, md);
+    @include font-size(15px, 24px);
+
+    display: grid;
+    gap: rem(16px);
+    background-color: var(--grey-light);
+    border: 1px solid var(--grey-mid);
+    border-radius: rem(10px);
+    color: var(--grey-dark);
+    font-weight: 300;
+
+    @include media-breakpoint-up(md) {
+      @include font-size(21px, 32px);
+    }
+
+    p {
+      font-weight: 300;
+
+      @include media-breakpoint-up(md) {
+        @include font-size(21px, 32px);
+      }
+    }
+
+    ul {
+      @include make-spacer(pl, 2);
+
+      display: grid;
+      gap: rem(16px);
+      list-style: disc;
+    }
+  }
+}

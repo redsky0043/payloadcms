@@ -1,0 +1,31 @@
+@use "../config" as *;
+
+.article-top-bg {
+  @include size(100vw, rem(120px));
+
+  position: absolute;
+  top: rem(80px);
+  z-index: 2;
+  background-color: var(--accent);
+
+  video,
+  img {
+    @include size(100%, 100%);
+
+    object-fit: cover;
+  }
+
+  @include media-breakpoint-up(md) {
+    @include size(100%, rem(300px));
+
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    top: 0;
+  }
+
+  @include media-breakpoint-up(xl) {
+    @include size(100%, rem(546px));
+
+    background-size: cover;
+  }
+}

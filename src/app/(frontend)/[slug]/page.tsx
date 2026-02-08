@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@/components/PayloadRedirects'
+// import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
@@ -8,7 +8,7 @@ import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
+// import { RenderHero } from '@/components/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -61,22 +61,24 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    // return <PayloadRedirects url={url} />
+    return null
   }
 
-  const { hero, layout } = page
+  // const { hero, layout } = page
+  const { layout } = page
 
   return (
-    <article className="pt-16 pb-24">
+    <main className="">
       <PageClient />
       {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+      {/* <PayloadRedirects disableNotFound url={url} /> */}
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} />
+      {/* <RenderHero {...hero} /> */}
       <RenderBlocks blocks={layout} />
-    </article>
+    </main>
   )
 }
 

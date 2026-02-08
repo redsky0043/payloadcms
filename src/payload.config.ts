@@ -4,13 +4,13 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
+// import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
+import { Footer } from './components/Footer/config'
+import { Header } from './components/Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -60,13 +60,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
-      max: 3, // Maximum number of connections in pool (Supabase free tier limit)
-      min: 1, // Minimum number of connections
-      idleTimeoutMillis: 10000, // Close idle connections after 10 seconds
-      connectionTimeoutMillis: 5000, // Timeout when connecting to database
+      max: 2, // Maximum number of connections in pool (Supabase free tier limit is 3)
+      min: 0, // Minimum number of connections (don't keep connections open)
+      idleTimeoutMillis: 5000, // Close idle connections after 5 seconds
+      connectionTimeoutMillis: 30000, // Timeout when connecting to database (30 seconds)
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, /* Categories, */ Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,

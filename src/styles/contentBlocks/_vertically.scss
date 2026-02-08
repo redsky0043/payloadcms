@@ -1,0 +1,202 @@
+@use "../config" as *;
+
+.vertically {
+  @include make-spacer(pb, 11);
+  @include make-spacer(py, 13, sm);
+  @include make-spacer(pb, 17, md);
+  @include make-spacer(pt, 19, xl);
+  @include make-spacer(pb, 24, xl);
+
+  color: var(--black);
+
+  &__inner {
+    @include flex(center, start, column-reverse);
+
+    position: relative;
+    gap: rem(46px);
+
+    @include media-breakpoint-up(sm) {
+      @include flex(space-between, flex-start, row);
+    }
+
+    @include media-breakpoint-up(xl) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__title {
+    @include font(300, 26px, 36px, "heading");
+
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      @include font-size(48px, 62px);
+
+      text-align: left;
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include font-size(62px, 74px);
+    }
+  }
+
+  &__left {
+    @include make-spacer(m, 0, sm);
+
+    position: relative;
+
+    img {
+      @include size(100vw, 100%);
+
+      margin: 0 rem(-24px);
+      object-fit: cover;
+
+      @include media-breakpoint-up(sm) {
+        @include size(100%);
+
+        margin: 0;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      @include size(rem(407px), rem(540px));
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include size(100%, rem(610px));
+    }
+  }
+
+  &__right {
+    @include make-spacer(ml, 14, md);
+    @include make-spacer(ml, 9, lg);
+
+    display: grid;
+    gap: rem(46px);
+
+    @include media-breakpoint-up(sm) {
+      gap: rem(24px);
+    }
+
+    @include media-breakpoint-up(md) {
+      gap: rem(16px);
+    }
+  }
+
+  &__picture {
+    display: block;
+  }
+
+  &-banner {
+    @include make-spacer(py, 3);
+    @include make-spacer(px, 3);
+    @include make-spacer(ml, 5, sm);
+    @include make-spacer(py, 4, xl);
+    @include make-spacer(px, 4, xl);
+    @include make-spacer(p, 6, xl);
+
+    position: relative;
+    margin-top: rem(-40px);
+    border-radius: 10px;
+    background-color: var(--white);
+    color: var(--gray-3);
+    border: 1px solid var(--grey-mid);
+    z-index: 2;
+
+    &__icon {
+      @include font-size(26px, 36px);
+
+      @include media-breakpoint-up(sm) {
+        @include font-size(50px);
+
+        position: absolute;
+        inset: rem(30px) auto auto rem(24px);
+      }
+
+      @include media-breakpoint-up(xl) {
+        top: rem(46px);
+      }
+    }
+
+    &__text {
+      @include font-size(15px, 24px);
+      @include make-spacer(mb, 2);
+      @include make-spacer(mb, 0, xxl);
+      @include make-spacer(mr, 3, xxl);
+
+      letter-spacing: 0.3px;
+
+      @include media-breakpoint-up(xl) {
+        @include font-size(21px, 32px);
+      }
+
+      @include media-breakpoint-up(xxl) {
+        letter-spacing: -0.2px;
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      @include size(rem(450px), auto);
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include flex(center, center);
+      @include position(absolute, rem(430px), auto, auto, rem(32px));
+
+      gap: rem(22px);
+      width: rem(900px);
+    }
+  }
+
+  &__list ul {
+    display: grid;
+    gap: rem(16px);
+
+    @include media-breakpoint-up(md) {
+      gap: rem(16px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      gap: rem(10px);
+    }
+
+    @include media-breakpoint-up(xxl) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: rem(137px);
+      row-gap: rem(16px);
+    }
+
+    &>p,
+    &>li {
+      @include flex(flex-start, center);
+      @include font-size(21px, 32px);
+
+      color: var(--grey-dark);
+      font-weight: 300;
+
+      &::before {
+        @include size(8px, 8px);
+        @include make-spacer(mr, 2);
+
+        content: "";
+        background-color: var(--black);
+        border-radius: 50%;
+      }
+
+      @include media-breakpoint-up(md) {
+        @include font-size(21px, 32px);
+      }
+    }
+  }
+
+  &__button {
+    @include media-breakpoint-up(sm) {
+      @include size(auto);
+    }
+  }
+}

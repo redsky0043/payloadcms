@@ -1,0 +1,46 @@
+@use "../config" as *;
+
+.breadcrumbs {
+  @include make-spacer(mt, 5);
+  @include make-spacer(mb, 3);
+  @include make-spacer(mt, 7, xl);
+
+  &__wrapper {
+    @include flex(flex-start, center);
+    @include font(600, 15px, 24px);
+    @include size(100%, auto);
+
+    color: var(--gray-2);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__link {
+    display: inline;
+
+    &::before {
+      @include make-spacer(ml, 1);
+      @include make-spacer(mr, 1);
+
+      content: '—';
+    }
+
+    &:first-of-type {
+      &::before {
+        content: none;
+      }
+    }
+
+    &:last-of-type {
+      color: var(--black);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &::before {
+        color: var(--gray-2);
+      }
+    }
+  }
+}

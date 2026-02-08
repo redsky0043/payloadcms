@@ -1,0 +1,175 @@
+@use '../config' as *;
+
+.header {
+  @include flex(center, center);
+  @include size(auto, var(--header-height));
+  @include position(fixed, 0, 0, auto, 0);
+  @include transition(#{background-color, color});
+
+  z-index: map-get($z-indexes, header);
+  background-color: var(--white);
+  color: var(--black);
+
+  &.is-menu-opened {
+
+    &:after {
+      visibility: visible;
+      opacity: 0.2;
+
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
+    }
+
+    .header__wrapper {
+      @include media-breakpoint-up(md) {
+        box-shadow: none;
+
+        &:after {
+          visibility: visible;
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  &.is-article {
+
+    .header__scrollbar {
+      display: block;
+    }
+  }
+
+  &:after {
+    @include size(100%);
+    @include transition(#{opacity, visibility});
+
+    position: absolute;
+    inset: 0 0 0 0;
+    background-color: var(--white);
+    opacity: 0;
+    z-index: 301;
+    visibility: hidden;
+    content: '';
+  }
+
+  @include media-breakpoint-up(md) {
+    @include position(fixed, rem(32px), 0, auto, 0);
+    background-color: transparent;
+  }
+
+  &__wrapper {
+    @include size(100%);
+    @include make-spacer(px, 3, md);
+    @include transition(box-shadow);
+    @include flex(space-between, center);
+
+    display: grid;
+    position: relative;
+    grid-template-columns: auto auto;
+    grid-gap: rem(32px);
+    justify-content: space-between;
+
+    &:after {
+      @include size(100%);
+      @include transition(#{opacity, visibility});
+
+      position: absolute;
+      inset: 0 0 0 0;
+      background-color: var(--white);
+      opacity: 0;
+      z-index: 301;
+      visibility: hidden;
+      content: '';
+    }
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: auto 1fr auto;
+      border-radius: rem(10px);
+      background-color: var(--white);
+      box-shadow: 0 rem(8px) rem(30px) rgba(175, 168, 220, 0.14);
+      border: 1px solid var(--grey-light);
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-gap: rem(50px);
+    }
+  }
+
+  &__overlay {
+    @include size(rem(300px), var(--header-height));
+
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: map-get($z-indexes, headerOverlay);
+    transform: translateX(100%);
+    background-color: var(--white);
+    content: '';
+
+    @include media-breakpoint-up(md) {
+      @include size(rem(440px), var(--header-height));
+
+      inset: rem(32px) 0 0 auto;
+    }
+  }
+
+  &__logo {
+    @include flex(center, center);
+    @include transition(transform);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__nav {
+    display: none;
+    color: var(--grey-dark);
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__img {
+    @include transition(fill);
+    @include size(rem(132px), rem(30px));
+
+    fill: currentColor;
+
+    &:hover {
+      fill: var(--accent);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include size(rem(140px), rem(30px));
+    }
+  }
+
+  &__languages {
+    justify-self: flex-end;
+  }
+
+  &__button {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  &__burger {
+    z-index: map-get($z-indexes, headerBurger);
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+  &__scrollbar {
+    display: none;
+    position: absolute;
+    inset: auto 0 0 0;
+  }
+}

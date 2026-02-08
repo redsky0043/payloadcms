@@ -1,0 +1,75 @@
+@use '../config' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @include smooth-font;
+  @include make-spacer(mx, auto);
+  @include make-spacer(my, 0);
+  @include flex(space-between, $direction: column);
+
+  position: relative;
+  background-color: var(--white);
+  min-width: 360px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  line-height: var(--line-height);
+  color: var(--black);
+  font-family: var(--font-family-regular);
+  font-weight: var(--weight-regular);
+  font-feature-settings: 'pnum' on, 'lnum' on;
+
+  &.is-overflow-hidden {
+    overflow: hidden;
+  }
+
+  &.is-body-grey {
+    background-color: var(--white-dark);
+  }
+}
+
+//
+// Headings
+//
+
+@include make-all-type($tag-types);
+
+@for $i from 1 through 6 {
+
+  h#{$i},
+  .h#{$i} {
+    @include make-spacer(mx, 0);
+    @include make-spacer(my, 0);
+
+    line-height: var(--headings-line-height);
+    font-family: var(--font-family-title);
+    font-weight: var(--weight-bold);
+  }
+}
+
+button {
+  @include reset-button;
+}
+
+ul {
+  @include reset-list;
+}
+
+p {
+  @include make-spacer(my, 0);
+}
+
+hr {
+  @include size(100%, 1px);
+  @include make-spacer(my, 0);
+
+  border: none;
+  background-color: var(--grey-mid);
+}

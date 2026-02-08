@@ -35,6 +35,7 @@ export const Posts: CollectionConfig<'posts'> = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  lockDocuments: false, // Disable document locking to avoid locked_documents table issues
   // This config controls what's populated by default when a post is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
@@ -120,15 +121,15 @@ export const Posts: CollectionConfig<'posts'> = {
               hasMany: true,
               relationTo: 'posts',
             },
-            {
-              name: 'categories',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              hasMany: true,
-              relationTo: 'categories',
-            },
+            // {
+            //   name: 'categories',
+            //   type: 'relationship',
+            //   admin: {
+            //     position: 'sidebar',
+            //   },
+            //   hasMany: true,
+            //   relationTo: 'categories',
+            // },
           ],
           label: 'Meta',
         },

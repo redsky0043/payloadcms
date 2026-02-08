@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  lockDocuments: false, // Disable document locking to avoid locked_documents table issues
   access: {
     admin: authenticated,
     create: authenticated,

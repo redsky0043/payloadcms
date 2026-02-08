@@ -1,0 +1,146 @@
+@use '../helpers/index' as *;
+
+//
+// Fonts
+//
+
+$fallback-fonts-list: ('Helvetica', 'Arial', sans-serif);
+$regular-fonts-list: prepend($fallback-fonts-list, 'var(--font-nunito-sans)');
+$headings-fonts-list: prepend($fallback-fonts-list, 'var(--font-nunito-sans)');
+
+//
+// Font Weight
+//
+
+$fw-base: 300;
+$fw-medium: 500;
+$fw-semi: 600;
+$fw-bold: 700;
+
+//
+// Line Height
+//
+
+$lh-base: 1.5;
+$lh-headings: 1.2;
+
+//
+// Font size
+//
+
+$fs-base: 16px !default;
+$fs-p: $fs-base;
+$fs-small: 12px;
+
+//
+// Headings
+//
+
+$fs-h1: rem(70px), $fw-base, 1.2;
+$fs-h2: rem(62px), $fw-base, 1.1;
+$fs-h3: rem(56px), $fw-base, 1.2;
+$fs-h4: rem(48px), $fw-base, 1.2;
+$fs-h5: rem(32px), $fw-base, 1.3;
+$fs-h6: rem(26px), $fw-base, 1.3;
+
+$tag-types: (
+  'h1': (
+    null: rem(28px),
+    sm: ($fs-h6),
+    md: ($fs-h3),
+    lg: ($fs-h3),
+    xl: ($fs-h1),
+    xxl: ($fs-h1)
+  ),
+  'h2': (
+    null: ($fs-h6),
+    sm: ($fs-h6),
+    md: ($fs-h4),
+    lg: ($fs-h4),
+    xl: ($fs-h2),
+    xxl: ($fs-h2)
+  ),
+  'h3': (
+    null: ($fs-h6),
+    sm: ($fs-h5),
+    md: ($fs-h5),
+    lg: ($fs-h4),
+    xl: ($fs-h4),
+    xxl: ($fs-h3)
+  ),
+  'h4': (
+    null: ($fs-h5),
+    sm: ($fs-h4),
+    md: ($fs-h4),
+    lg: ($fs-h4),
+    xl: ($fs-h4),
+    xxl: ($fs-h4)
+  ),
+  'h5': (
+    null: ($fs-h6),
+    sm: ($fs-h5),
+    md: ($fs-h5),
+    lg: ($fs-h5),
+    xl: ($fs-h5),
+    xxl: ($fs-h5)
+  ),
+  'h6': (
+    null: ($fs-h6),
+    sm: ($fs-h6),
+    md: ($fs-h6),
+    lg: ($fs-h6),
+    xl: ($fs-h6),
+    xxl: ($fs-h6)
+  ),
+  'p': (
+    null: (rem(16px), 400, 1.5),
+  ),
+  '.h1': (
+    null: rem(28px),
+    sm: ($fs-h6),
+    md: ($fs-h3),
+    lg: ($fs-h3),
+    xl: ($fs-h1),
+    xxl: ($fs-h1)
+  ),
+  '.h2': (
+    null: ($fs-h6),
+    sm: ($fs-h6),
+    md: ($fs-h4),
+    lg: ($fs-h4),
+    xl: ($fs-h2),
+    xxl: ($fs-h2)
+  ),
+  '.h3': (
+    null: ($fs-h6),
+    sm: ($fs-h5),
+    md: ($fs-h5),
+    lg: ($fs-h4),
+    xl: ($fs-h4),
+    xxl: ($fs-h3)
+  ),
+  '.h4': (
+    null: ($fs-h5),
+    sm: ($fs-h4),
+    md: ($fs-h4),
+    lg: ($fs-h4),
+    xl: ($fs-h4),
+    xxl: ($fs-h4)
+  ),
+  '.h5': (
+    null: ($fs-h6),
+    sm: ($fs-h5),
+    md: ($fs-h5),
+    lg: ($fs-h5),
+    xl: ($fs-h5),
+    xxl: ($fs-h5)
+  ),
+  '.h6': (
+    null: ($fs-h6),
+    sm: ($fs-h6),
+    md: ($fs-h6),
+    lg: ($fs-h6),
+    xl: ($fs-h6),
+    xxl: ($fs-h6)
+  )
+);

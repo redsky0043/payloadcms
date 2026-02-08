@@ -1,0 +1,90 @@
+@use "../config" as *;
+
+.article-quote {
+  @include make-spacer(my, 10);
+
+  &__wrap {
+    @include flex(center, center, column);
+    @include make-spacer(py, 4);
+    @include make-spacer(py, 5, sm);
+    @include make-spacer(my, 0);
+    @include make-spacer(mx, auto);
+
+    gap: rem(24px);
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+
+    @include media-breakpoint-up(sm) {
+      @include flex(flex-start, flex-start, row);
+    }
+
+    @include media-breakpoint-up(md) {
+      max-width: rem(640px);
+      gap: rem(32px);
+    }
+  }
+
+  &__img {
+    @include size(rem(88px), rem(88px));
+
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      @include size(100%);
+
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    @include flex(space-between, center, column);
+
+    gap: rem(24px);
+    text-align: center;
+    color: var(--gray-5);
+
+    @include media-breakpoint-up(sm) {
+      @include flex(flex-start, flex-start, column);
+    }
+
+    @include media-breakpoint-up(md) {
+      gap: rem(40px);
+      flex-shrink: 1;
+    }
+  }
+
+  &__title {
+    @include font(700, 26px, 36px);
+
+    @include media-breakpoint-up(sm) {
+      text-align: start;
+      max-width: rem(520px);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include font(700, 32px, 36px);
+    }
+  }
+
+  q {
+    quotes: "«" "»";
+
+    &:before {
+      content: open-quote;
+    }
+
+    &:after {
+      content: close-quote;
+    }
+  }
+
+  &__description {
+    @include font(400, 15px, 24px);
+
+    b {
+      font-weight: $fw-semi;
+    }
+  }
+}

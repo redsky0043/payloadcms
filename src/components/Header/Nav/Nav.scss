@@ -1,0 +1,123 @@
+@use '@/components/abstract/config' as *;
+
+.nav {
+  &__list {
+    @include flex(center, center);
+    @include font-size(15px, 24px);
+
+    gap: rem(32px);
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(xxl) {
+      grid-gap: rem(40px);
+    }
+  }
+
+  &__item {
+    @include size(min-content, auto);
+
+    position: relative;
+
+    &::before {
+      @include size(100%, 30px);
+
+      position: absolute;
+      top: 100%;
+      content: '';
+    }
+
+    &:hover {
+      .nav__link--dropdown::after {
+        transform: rotate(180deg);
+      }
+
+      .nav__dropdown {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &__link {
+    white-space: nowrap;
+
+    &--dropdown {
+      @include make-spacer(pr, 2);
+
+      position: relative;
+
+      &::after {
+        @include size(0px);
+        @include transition(transform, 0.3s);
+
+        position: absolute;
+        display: block;
+        top: 6px;
+        right: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid var(--grey-mid);
+        content: '';
+      }
+    }
+  }
+
+  &__dropdown {
+    @include make-spacer(p, 2);
+    @include transition(#{ visibility, opacity }, 0.2s);
+
+    position: absolute;
+    display: grid;
+    justify-items: start;
+    opacity: 0;
+    visibility: hidden;
+    gap: rem(8px);
+    top: rem(40px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    border-radius: rem(10px);
+    border: 1px solid var(--grey-light);
+    text-transform: capitalize;
+
+    &__item {
+      white-space: nowrap;
+    }
+  }
+
+  &--mobile {
+
+    .nav {
+
+      &__list {
+        @include font-size(17px, 30px);
+        @include flex(center, flex-start, column);
+
+        gap: rem(20px);
+      }
+
+      &__item {
+        @include size(100%, auto);
+      }
+
+      &__dropdown {
+        @include make-spacer(p, 0);
+        @include make-spacer(pl, 2);
+        @include make-spacer(pt, 2);
+
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        left: 0;
+        transform: translateX(0);
+        border: none;
+        text-transform: uppercase;
+        gap: rem(14px);
+
+        &__item {
+          white-space: normal;
+        }
+      }
+    }
+  }
+}

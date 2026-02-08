@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+//
+// Custom Properties
+//
+
+@use 'base/variables/index' as *;
+
+//
+// Global Styles
+//
+
+@use 'base/index' as *;
+
+//
+// Generated sprite
+//
+
+@use 'generated/index' as *;
+
+//
+// Libs
+//
+
+@use 'lib/index' as *;
+
+//
+// Containers
+//
+
+@use 'containers/index' as *;
+
+//
+// Components
+//
+
+@use 'components/index' as *;
+
+//
+// Sections
+//
+
+@use 'contentBlocks/index' as *;
+
+
+//
+// Utilities
+//
+
+@use 'utilities/index' as *;

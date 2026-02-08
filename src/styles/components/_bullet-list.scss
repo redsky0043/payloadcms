@@ -1,0 +1,40 @@
+@use '../config' as *;
+
+.bullet-list {
+  @include font-size(15px, 24px);
+
+  display: grid;
+  grid-gap: rem(16px);
+
+  &__item {
+    position: relative;
+    padding-left: rem(20px);
+
+    &:before {
+      @include size(rem(8px));
+
+      position: absolute;
+      inset: rem(9px) auto auto 0;
+      border-radius: 50%;
+      background-color: var(--accent);
+      content: '';
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: rem(210px) auto;
+    grid-gap: rem(16px) rem(32px);
+  }
+
+  @include media-breakpoint-up(md) {
+    grid-gap: rem(16px) rem(70px);
+    justify-content: flex-end;
+    align-content: flex-start;
+  }
+
+  @include media-breakpoint-up(xl) {
+    @include font-size(18px, 28px);
+
+    grid-gap: rem(16px) rem(10px);
+  }
+}

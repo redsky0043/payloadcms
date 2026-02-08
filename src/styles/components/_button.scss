@@ -1,0 +1,51 @@
+@use "../config" as *;
+
+.button {
+  @include make-spacer(py, 2);
+  @include make-spacer(px, 3);
+  @include make-spacer(py, 2, lg);
+  @include make-spacer(px, 4, lg);
+  @include font-size(15px, 24px);
+  @include size(100%, auto);
+  @include transition(background-color);
+
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--white);
+  border-radius: rem(4px);
+  background-color: var(--black);
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: var(--accent);
+  }
+
+  &--blue {
+    background-color: var(--accent);
+
+    &:hover {
+      background-color: var(--black);
+    }
+  }
+
+  &--header {
+    @include make-spacer(py, 1, lg);
+    @include make-spacer(px, 3, lg);
+  }
+
+  &--article {
+    @include font-size(15px, 24px);
+    @include make-spacer(py, 1, lg);
+    @include make-spacer(px, 3, lg);
+  }
+
+  @include media-breakpoint-up(md) {
+    @include size(min-content, auto);
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include font(400, 17px, 30px);
+  }
+}

@@ -1,0 +1,21 @@
+@use '../config' as *;
+
+.overlay {
+  @include size(100%);
+  @include transition(#{ opacity, visibility });
+
+  position: fixed;
+  inset: 0 0 0 0;
+  background-color: var(--black);
+  z-index: map-get($z-indexes, overlay);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.is-overflow-hidden {
+
+  .overlay {
+    opacity: 0.2;
+    visibility: visible;
+  }
+}

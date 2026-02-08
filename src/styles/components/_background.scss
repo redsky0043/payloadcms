@@ -1,0 +1,7 @@
+@use "../config" as *;
+
+.background {
+  &--white-dark {
+    background-color: var(--white-dark);
+  }
+}

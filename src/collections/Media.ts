@@ -17,6 +17,7 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
+  lockDocuments: false, // Disable document locking to avoid locked_documents table issues
   access: {
     create: authenticated,
     delete: authenticated,

@@ -1,0 +1,81 @@
+@use '../config' as *;
+
+.textfield {
+  position: relative;
+
+  &--textarea {
+
+    .textfield__input {
+      @include make-spacer(p, 0);
+      @include make-spacer(pb, 1);
+
+      border: none;
+      border-bottom: rem(2px) solid var(--grey-mid);
+      resize: none;
+    }
+
+    .textfield__label {
+      inset: auto auto rem(65px) 0;
+
+      @include media-breakpoint-up(md) {
+        inset: auto auto rem(80px) 0;
+      }
+    }
+  }
+
+  &__input {
+    @include size(100%, auto);
+    @include make-spacer(pb, 1);
+    @include font-size(17px, 24px);
+
+    border-bottom: rem(2px) solid var(--grey-mid);
+    font-weight: var(--weight-regular);
+    color: currentColor;
+    outline: none;
+    -webkit-border-radius: 0;
+    -webkit-appearance: none;
+
+    &:focus,
+    &:not(:placeholder-shown) {
+
+      + .textfield__label {
+        transform: translateY(rem(-23px)) scale(0.7);
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      @include font-size(21px, 30px);
+    }
+  }
+
+  &__label {
+    @include font-size(17px, 24px);
+    @include transition(transform, 0.3s);
+
+    position: absolute;
+    inset: auto auto rem(10px) 0;
+    transform-origin: left;
+    font-weight: var(--weight-regular);
+    color: var(--black);
+
+    @include media-breakpoint-up(md) {
+      inset: auto auto rem(15px) 0;
+      font-weight: var(--weight-regular);
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include font-size(26px, 36px);
+    }
+  }
+
+  &__error {
+    @include size(100%);
+    @include transition(opacity);
+    @include make-spacer(mb, half);
+    @include font-size(11px, 16px);
+
+    display: block;
+    text-align: right;
+    color: var(--red);
+  }
+}

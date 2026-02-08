@@ -1,0 +1,92 @@
+@use "../config" as *;
+
+.card {
+  @include size(100%, auto);
+
+  &:hover {
+
+    img {
+      transform: scale(1.1);
+    }
+
+    .card__img {
+      transform: translateY(-5%)
+    }
+
+    .underline::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  &__img {
+    @include size(100%, rem(180px));
+    @include make-spacer(mb, 2);
+    @include transition(transform);
+
+    display: block;
+    overflow: hidden;
+    border-radius: rem(10px);
+
+    img {
+      @include size(100%);
+      @include transition(transform);
+
+      object-fit: cover;
+      border-radius: rem(10px);
+    }
+
+    @include media-breakpoint-up(sm) {
+      height: rem(300px);
+    }
+
+    @include media-breakpoint-up(md) {
+      height: rem(178px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      height: rem(220px);
+    }
+  }
+
+  &__tags {
+    @include make-spacer(mt, 2, md);
+    @include flex(flex-start, flex-start, row, wrap);
+
+    gap: rem(8px);
+  }
+
+  &__text {
+    @include font(300, 21px, 30px);
+    @include make-spacer(mt, 1);
+    @include make-spacer(mb, 3);
+    @include make-spacer(mt, 2, md);
+    @include make-spacer(mb, 0, md);
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+
+    @include media-breakpoint-up(md) {
+      @include font(300, 26px, 36px);
+    }
+  }
+
+  &__date {
+    @include font-size(15px, 24px);
+
+    color: var(--gray-3);
+
+    @include media-breakpoint-up(md) {
+      @include font-size(21px, 32px);
+
+      display: block;
+    }
+  }
+}

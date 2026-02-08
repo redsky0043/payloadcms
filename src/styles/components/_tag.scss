@@ -1,0 +1,28 @@
+@use "../config" as *;
+
+.tag {
+  @include size(min-content, rem(40px));
+  @include flex(center, center);
+  @include font(600, 15px, 24px);
+  @include make-spacer(px, 2);
+  @include transition(#{background-color, color});
+
+  border: 1px solid var(--grey-dark);
+  border-radius: rem(40px);
+  background: transparent;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--grey-dark);
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &--active,
+  &:hover {
+    background-color: var(--grey-dark);
+    color: var(--white);
+  }
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}

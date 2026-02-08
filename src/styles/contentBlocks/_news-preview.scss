@@ -1,0 +1,157 @@
+@use "../config" as *;
+
+.news-preview {
+  @include make-spacer(my, 9);
+  @include make-spacer(my, 11, sm);
+  @include make-spacer(my, 17, md);
+  @include make-spacer(my, 22, lg);
+
+  &__headline {
+    @include make-spacer(mb, 4);
+    @include make-spacer(mb, 8, md);
+    @include flex(space-between, end);
+  }
+
+  &__title {
+    font-weight: var(--weight-regular);
+    color: var(--black);
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    @include flex(center, center);
+
+    color: var(--black);
+  }
+
+  &__post {
+    @include flex(flex-start, center);
+    @include font-size(17px, 30px);
+
+    font-weight: var(--weight-regular);
+    color: var(--black);
+    text-transform: uppercase;
+
+    &:hover {
+      .news-preview__icon {
+        transform: translateX(10%);
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      @include font-size(26px, 36px);
+    }
+  }
+
+  &__icon {
+    @include flex();
+    @include size(rem(24px));
+    @include make-spacer(ml, 1);
+    @include make-spacer(ml, 2, sm);
+    @include transition(transform);
+
+    fill: var(--grey-dark);
+
+    @include media-breakpoint-up(sm) {
+      @include size(rem(32px));
+    }
+  }
+
+  &__wrapper {
+    @include flex(space-between, center, column);
+
+    gap: rem(56px) 0;
+
+    @include media-breakpoint-up(md) {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: rem(35px);
+      align-items: flex-start;
+    }
+
+    @include media-breakpoint-up(lg) {
+      gap: rem(63px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      gap: rem(66px);
+    }
+  }
+
+  &__box {
+    @include size(100%, auto);
+    @include flex(space-between, normal, column);
+
+    &:hover {
+
+      .news-preview__img {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__picture {
+    @include flex();
+
+    border-radius: rem(10px);
+    overflow: hidden;
+  }
+
+  &__img {
+    @include size(100%, rem(215px));
+    @include transition(transform);
+
+    display: block;
+    object-fit: cover;
+    transform: scale(1);
+
+    @include media-breakpoint-up(sm) {
+      @include size(100%, rem(298px));
+    }
+
+    @include media-breakpoint-up(md) {
+      @include size(100%, rem(198px));
+    }
+
+    @include media-breakpoint-up(lg) {
+      @include size(100%, rem(236px));
+    }
+  }
+
+  &__content {
+    @include flex(flex-start, flex-start, column);
+
+    gap: rem(8px);
+
+    @include media-breakpoint-up(md) {
+      gap: rem(16px);
+    }
+  }
+
+  &__description {
+    @include font-size(21px, 30px);
+
+    color: var(--black);
+    font-weight: var(--weight-bold);
+
+    @include media-breakpoint-up(sm) {
+      @include flex(flex-start, center);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include font-size(26px, 36px);
+    }
+  }
+
+  &__date {
+    @include font-size(15px, 24px);
+    @include make-spacer(mt, 2);
+    @include make-spacer(mt, 4, lg);
+
+    color: var(--gray-3);
+
+    @include media-breakpoint-up(sm) {
+      @include font-size(21px, 32px);
+    }
+  }
+}

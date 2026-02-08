@@ -1,0 +1,30 @@
+@use '../config' as *;
+
+.mobile-navigation {
+  @include make-spacer(p, 3);
+  @include size(rem(300px), auto);
+  @include flex(flex-start, end);
+
+  position: fixed;
+  inset: 0 0 0 auto;
+  transform: translateX(100%);
+  z-index: map-get($z-indexes, mobile);
+  color: var(--grey-dark);
+  background-color: var(--white);
+
+
+  @include media-breakpoint-up(md) {
+    @include size(rem(440px), auto);
+  }
+
+  &__wrapper {
+    @include size(100%, auto);
+    @include flex(center, flex-start, column);
+
+    gap: rem(48px);
+  }
+
+  &__nav {
+    @include size(100%, auto);
+  }
+}

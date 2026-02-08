@@ -1,0 +1,29 @@
+@use '../config' as *;
+
+.language {
+  @include flex(center, center);
+
+  gap: rem(10px);
+  color: var(--gray-2);
+  text-transform: uppercase;
+
+  &__line {
+    @include size(1px, rem(20px));
+
+    display: block;
+    background-color: currentColor;
+  }
+
+  &__item {
+    @include transition(color);
+
+    &:hover {
+      color: var(--black);
+    }
+
+    &--active {
+      color: var(--black);
+      pointer-events: none;
+    }
+  }
+}

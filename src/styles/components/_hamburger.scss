@@ -1,0 +1,60 @@
+@use '../config' as *;
+
+.hamburger {
+  @include size(rem(40px));
+  @include flex(center, center);
+  @include transition(background-color);
+
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: rem(4px);
+  cursor: pointer;
+  z-index: map-get($z-indexes, burger);
+
+  &:hover {
+    background-color: var(--gray-4);
+  }
+
+  &.is-active {
+    color: var(--white);
+    background-color: var(--black);
+
+    .hamburger__line--first {
+      stroke-dashoffset: -134;
+      stroke-dasharray: 90 207;
+    }
+
+    .hamburger__line--second {
+      stroke-dashoffset: -30;
+      stroke-dasharray: 1 60;
+    }
+
+    .hamburger__line--third {
+      stroke-dashoffset: -134;
+      stroke-dasharray: 90 207;
+    }
+  }
+
+  &__cross {
+    @include size(rem(28px));
+  }
+
+  &__line {
+    fill: none;
+    stroke-width: 8;
+    stroke: currentColor;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1), stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &--first {
+      stroke-dasharray: 60 207;
+    }
+
+    &--second {
+      stroke-dasharray: 60 60;
+    }
+
+    &--third {
+      stroke-dasharray: 60 207;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@use '../config' as *;
+
+.container {
+  @include size(100%);
+  @include make-spacer(mx, auto);
+  @include make-spacer(px, 3);
+  @include make-spacer(px, 5, md);
+  @include make-spacer(px, 0, xl);
+
+  max-width: var(--container-width);
+}

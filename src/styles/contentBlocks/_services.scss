@@ -1,0 +1,107 @@
+@use "../config" as *;
+
+.services {
+  color: var(--black);
+
+  &__headline {
+    @include font(300, 26px, 36px);
+    @include make-spacer(mb, 4);
+    @include make-spacer(mb, 7, md);
+    @include make-spacer(mb, 10, lg);
+
+    text-align: center;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      @include font-size(48px, 62px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      @include font-size(62px, 74px);
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: rem(40px);
+
+    @include media-breakpoint-up(sm) {
+      grid-template-columns: 1fr 1fr;
+      gap: rem(36px);
+    }
+  }
+
+  &__item {
+    @include make-spacer(py, 4);
+    @include make-spacer(px, 3);
+    @include make-spacer(p, 6, md);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border-radius: rem(10px);
+    position: relative;
+    aspect-ratio: 1/1;
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--accent);
+
+    &:hover {
+      .services__bg {
+        opacity: 0;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      aspect-ratio: 1/0.9;
+    }
+  }
+
+  &__title {
+    @include font-size(21px, 32px);
+    @include make-spacer(mb, 1);
+    @include make-spacer(mb, 2, md);
+
+    text-transform: uppercase;
+    color: var(--white);
+
+    @include media-breakpoint-up(lg) {
+      @include font-size(48px, 62px);
+    }
+  }
+
+  &__text {
+    @include font-size(15px, 24px);
+
+    color: var(--white);
+    font-weight: 300;
+
+    @include media-breakpoint-up(lg) {
+      @include font-size(21px, 32px);
+    }
+  }
+
+  &__bg {
+    @include transition(opacity, 0.3s);
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    &::after {
+      @include size(100%);
+
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.5);
+      content: '';
+    }
+  }
+
+  &__img {
+    @include size(100%);
+
+    object-fit: cover;
+  }
+}

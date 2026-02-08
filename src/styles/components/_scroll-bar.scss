@@ -1,0 +1,11 @@
+@use '../config' as *;
+
+.scroll-bar {
+  @include size(100%, rem(3px));
+
+  &__line {
+    @include size(0%, rem(3px));
+
+    background-color: var(--black);
+  }
+}

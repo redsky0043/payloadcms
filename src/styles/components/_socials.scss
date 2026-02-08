@@ -1,0 +1,32 @@
+@use '../config' as *;
+
+.socials {
+  @include flex(center, center);
+
+  gap: rem(20px);
+  color: var(--white);
+
+  &__item {
+    @include size(48px);
+    @include flex(center, center);
+    @include transition(background-color);
+
+    border-radius: 100%;
+    background-color: var(--black);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--gray-4);
+    }
+  }
+
+  &__link {
+    @include flex(center, center);
+  }
+
+  &__icon {
+    @include size(24px);
+
+    fill: currentColor;
+  }
+}

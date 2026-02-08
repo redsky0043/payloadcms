@@ -1,0 +1,16 @@
+@use "../config" as *;
+
+.container-rounded {
+  position: relative;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 24px;
+  z-index: 100;
+
+  &--black {
+    @include flex(flex-start, center, column);
+
+    background-color: var(--black);
+    overflow: hidden;
+  }
+}

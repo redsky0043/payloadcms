@@ -1,0 +1,30 @@
+@use "../config" as *;
+
+:root {
+  --border-radius-base: 24px;
+}
+
+@include media-breakpoint-up(md) {
+  :root {
+    --border-radius-base: 48px;
+  }
+}
+
+.section {
+  @include make-spacer(py, 10);
+  @include make-spacer(py, 17, md);
+
+  &--rouded-top {
+    border-top-left-radius: rem(var(--border-radius-base));
+    border-top-right-radius: rem(var(--border-radius-base));
+  }
+
+  &--rouded-bottom {
+    border-bottom-left-radius: rem(var(--border-radius-base));
+    border-bottom-right-radius: rem(var(--border-radius-base));
+  }
+
+  &--bg-secondary {
+    background-color: var(--grey-light);
+  }
+}

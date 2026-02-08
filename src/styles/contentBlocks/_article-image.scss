@@ -1,0 +1,39 @@
+@use "../config" as *;
+
+.article-img {
+  @include make-spacer(my, 6);
+  @include make-spacer(mt, 11, sm);
+  @include make-spacer(mb, 7, sm);
+
+  &__wrap {
+    @include flex(flex-end, flex-end, column);
+
+    gap: rem(8px);
+
+    @include media-breakpoint-up(sm) {
+      gap: rem(16px);
+    }
+  }
+
+  &__picture {
+    @include size(100%, rem(208px));
+
+    @include media-breakpoint-up(sm) {
+      @include size(100%, rem(345px));
+    }
+
+    img {
+      @include size(100%);
+
+      object-fit: cover;
+      border-radius: rem(10px);
+    }
+  }
+
+  &__info {
+    @include flex(flex-end, flex-end);
+    @include font-size(15px, 24px);
+
+    color: var(--gray-3);
+  }
+}

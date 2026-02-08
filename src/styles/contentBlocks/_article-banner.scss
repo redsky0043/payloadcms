@@ -1,0 +1,103 @@
+@use "../config" as *;
+
+.article-banner {
+  @include make-spacer(my, 10);
+
+  &__wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+
+    @include media-breakpoint-up(sm) {
+      grid-template-columns: rem(220px) auto;
+      min-height: rem(250px);
+    }
+  }
+
+  &__background {
+    @include flex();
+
+    img {
+      @include size(100%, rem(150px));
+
+      border-radius: rem(10px) rem(10px) 0 0;
+
+      @include media-breakpoint-up(sm) {
+        @include size(rem(220px), 100%);
+
+        border-radius: rem(10px) 0 0 rem(10px);
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__picture {
+    @include flex();
+
+    position: absolute;
+    inset: auto auto auto 50%;
+    transform: translate(-50%, 25%);
+
+    @include media-breakpoint-up(sm) {
+      inset: auto auto rem(40px) rem(40px);
+      transform: none;
+    }
+
+    img {
+      @include size(rem(248px), rem(177px));
+
+      border-radius: rem(4px);
+      object-fit: cover;
+
+      @include media-breakpoint-up(sm) {
+        @include size(rem(222px), rem(170px));
+      }
+    }
+  }
+
+  &__info {
+    @include flex(space-between, center, column);
+    @include make-spacer(px, 4);
+    @include make-spacer(pt, 12);
+    @include make-spacer(pb, 4);
+    @include make-spacer(py, 0, sm);
+    @include make-spacer(pl, 12, sm);
+    @include make-spacer(pr, 6, sm);
+
+    background-color: var((--white));
+    gap: rem(16px);
+    border-radius: 0 0 rem(10px) rem(10px);
+    box-shadow: 0 rem(2px) rem(30px) rgba(175, 168, 220, 0.15);
+
+    @include media-breakpoint-up(sm) {
+      @include flex(center, flex-start, column);
+
+      border-radius: 0 rem(10px) rem(10px) 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      gap: rem(24px);
+    }
+  }
+
+  &__title {
+    @include font(700, 21px, 30px);
+
+    color: var(--black);
+    max-width: rem(280px);
+  }
+
+  &__btn {
+    @include font(600, 15px, 24px);
+
+    max-width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      max-width: min-content;
+    }
+
+    @include media-breakpoint-up(lg) {
+      @include font-size(15px, 24px);
+    }
+  }
+}

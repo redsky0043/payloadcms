@@ -1,0 +1,6 @@
+@use '../../abstract/helpers/index' as *;
+
+:root {
+  --header-height: #{rem(80px)};
+  --container-width: #{rem(1390px)};
+}

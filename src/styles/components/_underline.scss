@@ -1,0 +1,25 @@
+@use '../config' as *;
+
+.underline {
+  position: relative;
+
+  &::after {
+    @include size(100%, 1px);
+    @include transition(transform, 0.8s);
+
+    position: absolute;
+    inset: auto auto rem(1px) 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    background-color: currentColor;
+    content: '';
+  }
+
+  &:hover {
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}

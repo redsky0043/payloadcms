@@ -1,0 +1,109 @@
+@use "../config" as *;
+
+.top-block {
+  @include make-spacer(mb, 5);
+  @include make-spacer(mb, 10, md);
+  @include make-spacer(mt, 0, sm);
+
+  margin-top: var(--header-height);
+  background-color: var(--white);
+
+  &--collapsed {
+    @include media-breakpoint-up(md) {
+      margin-bottom: -10rem;
+    }
+  }
+
+  &__headline {
+    @include flex(flex-start);
+    @include font-size(32px, 40px);
+
+    position: absolute;
+    inset: auto auto rem(240px) 0;
+
+    color: var(--white);
+    font-weight: var(--weight-bold);
+    z-index: 2;
+
+    @include media-breakpoint-up(sm) {
+      @include font-size(48px, 54px);
+      @include size(100%, auto);
+
+      inset: auto auto rem(185px) 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      @include font-size(62px, 74px);
+
+      inset: auto auto rem(205px) 0;
+    }
+  }
+
+  &__box {
+    @include flex(flex-start, flex-start, column);
+    @include make-spacer(mb, 6);
+    @include make-spacer(mx, auto);
+    @include make-spacer(ml, 15, md);
+    @include make-spacer(pt, 2);
+    @include make-spacer(pb, 3);
+    @include make-spacer(px, 3);
+    @include make-spacer(p, 4, md);
+    @include make-spacer(mb, 10, md);
+
+    max-width: rem(312px);
+    box-shadow: 0 rem(8px) rem(30px) rgba(175, 168, 220, 0.15);
+    border-radius: rem(10px);
+    margin-top: rem(-148px);
+    background-color: var(--white);
+    position: relative;
+    z-index: 2;
+
+    @include media-breakpoint-up(sm) {
+      @include flex(flex-start, flex-start, row);
+
+      max-width: rem(600px);
+      margin-top: rem(-100px);
+    }
+
+    @include media-breakpoint-up(md) {
+      max-width: rem(688px);
+      margin-top: rem(-110px);
+    }
+  }
+
+  &__content {
+    @include font-size(15px, 24px);
+    @include make-spacer(ml, 3, sm);
+
+    color: var(--gray-3);
+
+    @include media-breakpoint-up(sm) {
+      @include font-size(21px, 32px);
+    }
+  }
+
+  &__img {
+    @include size(100%, rem(320px));
+
+    display: block;
+    object-fit: cover;
+    z-index: 1;
+    position: relative;
+
+    @include media-breakpoint-up(sm) {
+      border-bottom: rem(10px);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include size(100%, rem(550px));
+    }
+  }
+
+  &__icon {
+    @include size(rem(27px), rem(37px));
+
+    @include media-breakpoint-up(sm) {
+      @include size(rem(50px), rem(69px));
+    }
+  }
+}

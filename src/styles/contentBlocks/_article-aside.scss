@@ -1,0 +1,145 @@
+@use "../config" as *;
+
+.article-aside {
+  @include media-breakpoint-up(lg) {
+    @include flex(flex-start, flex-start, column-reverse);
+    @include size(rem(170px), auto);
+  }
+
+  &-socials {
+    @include flex(space-between);
+    @include make-spacer(my, 4);
+    @include make-spacer(my, 0, lg);
+    @include make-spacer(mt, 9, lg);
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: column;
+    }
+
+    .socials {
+      @include make-spacer(mb, 3, lg);
+
+      justify-content: flex-start;
+    }
+
+    .socials__item {
+      @include size(rem(32px));
+
+      .icon {
+        @include size(rem(16px));
+      }
+    }
+
+    &__btn {
+      @include flex(center, center);
+      @include make-spacer(py, 1, lg);
+      @include make-spacer(px, 3, lg);
+
+      width: min-content;
+
+      @include media-breakpoint-up(lg) {
+        @include font(600, 15px, 24px);
+      }
+
+      .icon {
+        @include size(rem(16px));
+
+        fill: var(--white);
+        margin-right: rem(6px);
+      }
+    }
+  }
+
+  &-links {
+    @include make-spacer(px, 3);
+    @include make-spacer(mx, 0, md);
+    @include make-spacer(px, 0, lg);
+
+    width: 100vw;
+    margin: 0 rem(-24px);
+    border-top: 1px solid var(--gray-2);
+
+    @include media-breakpoint-up(md) {
+      width: 100%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      border-top: 0;
+    }
+
+    &__btn {
+      @include font(700, 13px, 19px);
+      @include size(100%, rem(50px));
+      @include flex(flex-start, center);
+
+      @include media-breakpoint-up(lg) {
+        display: none;
+      }
+
+      .icon {
+        @include size(rem(24px));
+        @include make-spacer(ml, 1);
+        @include transition('transform', 0.25s);
+      }
+
+      &--open {
+        .icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &__list {
+      @include flex(flex-start, flex-start, column);
+      @include size(100%, 0);
+      @include transition(height);
+      @include make-spacer(pl, 2);
+
+      gap: rem(10px) 0;
+      overflow-y: hidden;
+      overflow-x: visible;
+      text-transform: capitalize;
+      border-left: 1px solid var(--gray-2);
+
+      @include media-breakpoint-up(lg) {
+        height: auto;
+        overflow: visible;
+      }
+
+      &--open {
+        @include size(100%, auto);
+      }
+    }
+
+    &__item {
+      @include transition(color);
+      @include font-size(13px, 19px);
+
+      display: block;
+      color: var(--grey-mid);
+      position: relative;
+
+      &::before {
+        @include size(rem(3px), 100%);
+        @include position(absolute, 0, auto, 0, rem(-18px));
+        @include transition(opacity);
+
+        background-color: var(--black);
+        opacity: 0;
+        content: '';
+      }
+
+      &:hover {
+        color: var(--black);
+      }
+    }
+  }
+
+  .is-active {
+    color: var(--black);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}

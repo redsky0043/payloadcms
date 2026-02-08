@@ -1,0 +1,71 @@
+@use '../config' as *;
+
+.circle {
+  @include flex(center, center);
+  @include transition(transform, 0.3s);
+
+  z-index: 9999;
+
+  &.is-focused {
+
+    .circle__wrapper {
+      transform: scale(1);
+    }
+  }
+
+  &.is-pressed {
+
+    .circle__wrapper {
+      transform: scale(0.9);
+      background-color: var(--gray-5);
+    }
+  }
+
+  &__wrapper {
+    @include size(rem(120px));
+    @include flex(center, center);
+    @include font-size(15px, 24px);
+    @include transition(#{ background-color, transform }, 0.4s);
+
+    text-align: center;
+    white-space: nowrap;
+    color: var(--white);
+    border-radius: 100%;
+    background-color: var(--black);
+    font-weight: var(--weight-semi);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--gray-5);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    @include media-breakpoint-up(md) {
+      @include size(rem(148px));
+      @include font-size(17px, 30px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      transform: scale(0.001);
+    }
+  }
+
+  &--moved {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+
+    @include media-breakpoint-up(xl) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    position: fixed;
+    pointer-events: none;
+  }
+}

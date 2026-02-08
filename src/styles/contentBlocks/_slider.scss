@@ -1,0 +1,159 @@
+@use '../config' as *;
+
+.slider {
+  @include make-spacer(mt, 9);
+  @include make-spacer(mb, 11);
+  @include make-spacer(my, 17, md);
+  @include make-spacer(my, 17, md);
+
+  .swiper-slide-prev,
+  .swiper-slide-next {
+    background-color: #ededed; // unique color
+  }
+
+  &__headline {
+    @include make-spacer(mb, 5);
+    @include make-spacer(mb, 7, md);
+    @include make-spacer(mb, 12, xl);
+
+    text-transform: uppercase;
+
+    br {
+      display: none;
+
+      @include media-breakpoint-up(md) {
+        display: block;
+      }
+    }
+
+    span {
+      @include make-spacer(ml, auto, md);
+
+      color: var(--gray-2);
+
+      @include media-breakpoint-up(md) {
+        margin-left: rem(230px);
+      }
+
+      @include media-breakpoint-up(xl) {
+        margin-left: rem(310px);
+      }
+    }
+  }
+
+  &__gallery {
+    position: relative;
+  }
+
+  &__item {
+    @include transition(#{ transform, background-color });
+
+    display: grid;
+    background-color: var(--white);
+    border-radius: rem(10px);
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--grey-mid);
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: 1fr 1fr;
+      justify-content: space-between;
+      // min-height: rem(520px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: 1fr 1fr;
+      // min-height: rem(700px);
+    }
+
+    @include media-breakpoint-up(xxl) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__text {
+    @include make-spacer(p, 3);
+    @include make-spacer(px, 7, md);
+    @include make-spacer(py, 9, md);
+    @include make-spacer(p, 10, xl);
+  }
+
+  &__counter {
+    @include make-spacer(mb, 3);
+    @include make-spacer(mb, 3, md);
+    @include font(300, 21px, 30px, "heading");
+
+    color: var(--grey-mid);
+
+    @include media-breakpoint-up(md) {
+      @include font-size(26px, 36px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include font-size(40px, 50px);
+    }
+  }
+
+  &__title {
+    @include make-spacer(mb, 4);
+    @include make-spacer(mb, 5, md);
+    @include make-spacer(mb, 7, xl);
+    @include font(300, 21px, 30px, "heading");
+
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      @include font-size(26px, 36px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      @include font-size(40px, 50px);
+    }
+  }
+
+  &__about {
+    @include font-size(15px, 24px);
+
+    color: var(--gray-3);
+
+    @include media-breakpoint-up(xl) {
+      @include font-size(21px, 32px);
+    }
+  }
+
+  &__picture {
+    display: block;
+    aspect-ratio: 2/1;
+    border-radius: rem(10px);
+    overflow: hidden;
+
+    @include media-breakpoint-up(md) {
+      aspect-ratio: 2/1.5;
+    }
+
+    @include media-breakpoint-up(xl) {
+      aspect-ratio: 1/1;
+    }
+  }
+
+  &__img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+
+  &__action {
+    @include make-spacer(mx, auto);
+    @include make-spacer(mt, 0, xl);
+
+    margin-top: rem(-90px);
+    z-index: map-get($z-indexes, cursor);
+    z-index: 500;
+    position: relative;
+
+    @include media-breakpoint-up(xl) {
+      display: none;
+    }
+  }
+}

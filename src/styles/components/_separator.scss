@@ -1,0 +1,12 @@
+@use "../config" as *;
+
+.separator {
+  display: none;
+
+  @include media-breakpoint-up(sm) {
+    @include size(100vw, rem(1px));
+
+    display: block;
+    background-color: var(--gray-3);
+  }
+}

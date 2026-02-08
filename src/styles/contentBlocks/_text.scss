@@ -1,0 +1,173 @@
+@use "../config" as *;
+
+.text {
+  //@include make-spacer(mt, 10);
+  //@include make-spacer(mb, 13);
+  //@include make-spacer(my, 17, md);
+  //@include make-spacer(mt, 21, lg);
+  //@include make-spacer(mb, 25, lg);
+
+  position: relative;
+  z-index: 3;
+
+  &__container {
+    @include make-spacer(px, 0, xl);
+
+    max-width: rem(960px);
+  }
+
+  &__inner {
+    @include make-spacer(py, 7, md);
+    @include make-spacer(px, 15, md);
+    @include make-spacer(mb, 10);
+
+    border-radius: rem(10px);
+    background-color: var(--white);
+
+    @include media-breakpoint-up(md) {
+      box-shadow: 0 rem(8px) rem(30px) rgba(175, 168, 220, 0.15);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      @include make-spacer(mb, 5);
+
+      text-align: center;
+
+      @include media-breakpoint-up(md) {
+        @include font-size(40px, 50px);
+      }
+    }
+
+    h2 {
+      @include make-spacer(my, 5);
+
+      font-weight: 500;
+
+      @include media-breakpoint-up(md) {
+        @include font-size(40px, 50px);
+      }
+    }
+
+    h3 {
+      @include font(300, 26px, 32px, 'heading');
+      @include make-spacer(mt, 6);
+      @include make-spacer(mb, 3);
+    }
+
+    p {
+      @include font-size(15px, 24px);
+      @include make-spacer(my, 2);
+
+      color: var(--gray-5);
+      font-weight: 300;
+
+      @include media-breakpoint-up(md) {
+        @include font-size(21px, 32px);
+      }
+    }
+
+    ul,
+    ol {
+      @include make-spacer(my, 1);
+      @include make-spacer(pl, 3);
+      @include font-size(15px, 24px);
+
+      list-style-type: disc;
+
+      @include media-breakpoint-up(md) {
+        @include font-size(21px, 32px);
+      }
+    }
+
+    img {
+      @include size(100%, rem(320px));
+
+      display: block;
+      object-fit: cover;
+      z-index: 1;
+
+      @include media-breakpoint-up(sm) {
+        border-radius: rem(10px);
+      }
+
+      @include media-breakpoint-up(md) {
+        @include size(100%, rem(370px));
+      }
+    }
+  }
+
+  //&__box {
+  //  @include flex(flex-start, flex-start);
+  //  @include make-spacer(mb, 6);
+  //  @include make-spacer(mx, auto);
+  //
+  //  max-width: rem(312px);
+  //  box-shadow: 0 rem(8px) rem(30px) rgba(175, 168, 220, 0.15);
+  //  border-radius: rem(10px);
+  //  margin-top: rem(-100px);
+  //  background-color: var(--white);
+  //  position: relative;
+  //  z-index: 2;
+  //
+  //  @include media-breakpoint-up(sm) {
+  //    max-width: rem(600px);
+  //  }
+  //
+  //  @include media-breakpoint-up(md) {
+  //    @include make-spacer(mb, 10);
+  //
+  //    max-width: rem(816px);
+  //    margin-top: rem(-110px);
+  //  }
+  //}
+
+  //&__content {
+  //  @include font-size(15px, 24px);
+  //  @include make-spacer(p, 3);
+  //  @include make-spacer(p, 4, sm);
+  //  @include make-spacer(p, 6, md);
+  //
+  //  color: var(--gray-3);
+  //
+  //  @include media-breakpoint-up(md) {
+  //    @include font-size(21px, 32px);
+  //  }
+  //}
+
+  //&__wrapper {
+  //  @include flex(space-between, flex-start, column);
+  //  @include make-spacer(px, 3);
+  //
+  //  @include media-breakpoint-up(sm) {
+  //    @include make-spacer(mx, auto);
+  //    @include make-spacer(my, 0);
+  //
+  //    max-width: rem(600px);
+  //  }
+  //
+  //  @include media-breakpoint-up(md) {
+  //    max-width: rem(720px);
+  //  }
+  //}
+
+  //&__title {
+  //  @include make-spacer(mt, 6);
+  //  @include make-spacer(mb, 2);
+  //  @include make-spacer(mt, 11, md);
+  //  @include make-spacer(mb, 3, md);
+  //
+  //  font-weight: var(--weight-bold);
+  //  color: var(--gray-5);
+  //}
+
+}

@@ -1,0 +1,14 @@
+@use "../config" as *;
+
+.container-article {
+  @include make-spacer(pt, 5);
+  @include make-spacer(px, 5, md);
+  @include make-spacer(p, 13, xl);
+
+  &--top {
+    @include size(100%);
+    @include make-spacer(mx, auto);
+
+    max-width: rem(1392px);
+  }
+}

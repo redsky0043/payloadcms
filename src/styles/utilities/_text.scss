@@ -1,0 +1,214 @@
+@use '../config' as *;
+
+// Colors
+
+.u-color-white {
+  color: #fff;
+}
+
+// Text Align
+
+.u-text-center {
+  text-align: center;
+
+  &-sm {
+    @include media-breakpoint-up(sm) {
+      text-align: center;
+    }
+  }
+}
+
+.u-text-left {
+  text-align: left;
+}
+
+// Font Weight
+
+.u-text-light {
+  font-weight: var(--light);
+}
+
+// Offset
+
+.u-text-offset {
+  @include make-spacer(my, 8);
+  @include make-spacer(my, 12, md);
+  @include make-spacer(my, 8, xl);
+  @include make-spacer(my, 12, xxl);
+}
+
+.u-top-offset {
+  margin-top: 240px;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 200px;
+  }
+}
+
+.u-text-block {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  li {
+    @include make-spacer(my, 2);
+    @include make-spacer(my, 4, sm);
+  }
+
+  figcaption,
+  blockquote {
+    margin: 0 auto;
+    padding: 0;
+    max-width: rem(285px);
+
+    @include media-breakpoint-up(sm) {
+      max-width: rem(528px);
+    }
+
+    @include media-breakpoint-up(md) {
+      max-width: rem(720px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      max-width: rem(856px);
+    }
+
+    @include media-breakpoint-up(xxl) {
+      max-width: rem(914px);
+    }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    max-width: rem(375px);
+
+    @include media-breakpoint-up(sm) {
+      max-width: rem(704px);
+      text-align: center;
+    }
+
+    @include media-breakpoint-up(md) {
+      max-width: rem(960px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      max-width: rem(1096px);
+    }
+
+    @include media-breakpoint-up(xxl) {
+      max-width: rem(1176px);
+    }
+  }
+
+  figcaption {
+    @include make-spacer(mt, 2);
+    @include make-spacer(mt, 3, sm);
+  }
+
+  blockquote {
+    @include make-spacer(mb, 1);
+    @include make-spacer(mb, 3, sm);
+
+    &::after {
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='69' height='65' viewBox='0 0 69 65' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.6364 29.9378L13.6364 65H0L9.54545 29.9378H0V0H28.6364V29.9378ZM69 29.9378L54 65H40.3636L49.9091 29.9378H40.3636V0H69V29.9378Z' fill='%23F9D94A'/%3E%3C/svg%3E%0A");
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='69' height='65' viewBox='0 0 69 65' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40.3636 35.0622L55.3636 0H69L59.4545 35.0622H69V65H40.3636V35.0622ZM0 35.0622L15 0H28.6364L19.0909 35.0622H28.6364V65H0V35.0622Z' fill='%23F9D94A'/%3E%3C/svg%3E%0A");
+    }
+
+    &::after,
+    &::before {
+      @include size(rem(35px), rem(33px));
+
+      display: block;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: cover;
+      content: '';
+
+      @include media-breakpoint-up(sm) {
+        @include size(rem(69px), rem(65px));
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      @include font-size(24px, 32px);
+    }
+  }
+
+  p {
+    @include media-breakpoint-up(md) {
+      max-width: rem(840px);
+    }
+  }
+
+  ol,
+  ul {
+    @include reset-list;
+    @include make-spacer(pl, 3);
+  }
+
+  ol {
+    @include make-spacer(my, 4);
+
+    counter-reset: list 0;
+
+    li {
+
+      &::before {
+        position: absolute;
+        left: rem(-17px);
+        transform: translateX(-100%);
+        content: counter(list);
+        counter-increment: list;
+      }
+    }
+  }
+
+  ul {
+    @include make-spacer(mt, 4);
+
+    li {
+
+      &::before {
+        @include size(rem(5px));
+
+        position: absolute;
+        top: rem(9px);
+        left: rem(-23px);
+        border-radius: 50%;
+        background-color: var(--violet);
+        content: '';
+      }
+    }
+  }
+
+  li {
+    @include make-spacer(mb, 2);
+
+    position: relative;
+
+    &:last-child {
+      @include make-spacer(mb, 0);
+    }
+  }
+}
