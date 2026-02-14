@@ -48,7 +48,7 @@
   &__item {
     @include transition(#{ transform, background-color });
 
-    display: grid;
+    display: grid !important;
     background-color: var(--white);
     border-radius: rem(10px);
     overflow: hidden;

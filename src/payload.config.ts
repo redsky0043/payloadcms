@@ -5,9 +5,11 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 // import { Categories } from './collections/Categories'
+import { FormSubmissions } from './collections/FormSubmissions'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Services } from './collections/Services'
 import { Users } from './collections/Users'
 import { Footer } from './components/Footer/config'
 import { Header } from './components/Header/config'
@@ -66,7 +68,7 @@ export default buildConfig({
       connectionTimeoutMillis: 30000, // Timeout when connecting to database (30 seconds)
     },
   }),
-  collections: [Pages, Posts, Media, /* Categories, */ Users],
+  collections: [Pages, Posts, Media, Services, FormSubmissions, /* Categories, */ Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,

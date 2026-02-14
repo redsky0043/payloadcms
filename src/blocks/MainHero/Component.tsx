@@ -4,7 +4,6 @@ import Image from 'next/image'
 // import "./HeroSection.scss"
 
 export const MainHero: React.FC<MainHeroBlockProps> = ({ richText, bannerText, buttonText, media }) => {
-  console.log(media)
   return (
     <section className="hero" id="hero">
       <div className="container">

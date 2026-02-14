@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Config } from '../payload-types'
+import type { Media, Page, Post, Service, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
@@ -19,10 +19,20 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   return url
 }
 
+function getDocUrl(
+  doc: Partial<Page> | Partial<Post> | Partial<Service> | null,
+  basePath?: string,
+): string {
+  if (!doc?.slug) return '/'
+  const slug = Array.isArray(doc.slug) ? doc.slug.join('/') : doc.slug
+  return basePath ? `/${basePath}/${slug}` : `/${slug}`
+}
+
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Post> | null
+  doc: Partial<Page> | Partial<Post> | Partial<Service> | null
+  basePath?: string
 }): Promise<Metadata> => {
-  const { doc } = args
+  const { doc, basePath } = args
 
   const ogImage = getImageURL(doc?.meta?.image)
 
@@ -42,7 +52,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: getDocUrl(doc, basePath),
     }),
     title,
   }

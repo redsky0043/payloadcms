@@ -64,7 +64,7 @@ export const Header: GlobalConfig = {
                       width: '50%',
                     },
                     label: 'Document to link to',
-                    relationTo: ['pages', 'posts'],
+                    relationTo: ['pages', 'posts', 'services'],
                     required: false,
                   },
                   {
@@ -92,6 +92,19 @@ export const Header: GlobalConfig = {
           },
         }),
         {
+          name: 'dropdownSource',
+          type: 'select',
+          label: 'Dropdown source',
+          defaultValue: 'manual',
+          options: [
+            { label: 'Manual (sub items below)', value: 'manual' },
+            { label: 'Services collection', value: 'services' },
+          ],
+          admin: {
+            description: "Use 'Services collection' to auto-populate dropdown from Services",
+          },
+        },
+        {
           name: 'subItems',
           type: 'array',
           label: 'Sub Menu Items',
@@ -101,7 +114,8 @@ export const Header: GlobalConfig = {
             }),
           ],
           admin: {
-            description: 'Add sub-menu items that will appear in a dropdown',
+            description: 'Add sub-menu items (used when Dropdown source is Manual)',
+            condition: (_, siblingData) => siblingData?.dropdownSource !== 'services',
           },
         },
       ],

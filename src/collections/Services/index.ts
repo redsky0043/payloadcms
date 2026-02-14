@@ -5,19 +5,17 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
-// import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { MainHero } from '../../blocks/MainHero/config'
-import { Services } from '../../blocks/Services/config'
+import { Services as ServicesBlock } from '../../blocks/Services/config'
 import { Info } from '../../blocks/Info/config'
 import { ContactForm } from '../../blocks/ContactForm/config'
 import { NewsPreview } from '../../blocks/NewsPreview/config'
 import { Slider } from '../../blocks/Slider/config'
-// import { hero } from '@/components/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { revalidateService, revalidateServiceDelete } from './hooks/revalidateService'
 
 import {
   MetaDescriptionField,
@@ -27,21 +25,23 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-export const Pages: CollectionConfig<'pages'> = {
-  slug: 'pages',
+export const Services: CollectionConfig<'services'> = {
+  slug: 'services',
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  lockDocuments: false, // Disable document locking to avoid locked_documents table issues
-  // This config controls what's populated by default when a page is referenced
-  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
+  lockDocuments: false,
   defaultPopulate: {
     title: true,
     slug: true,
+    meta: {
+      title: true,
+      description: true,
+      image: true,
+    },
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
@@ -49,14 +49,14 @@ export const Pages: CollectionConfig<'pages'> = {
       url: ({ data, req }) =>
         generatePreviewPath({
           slug: data?.slug,
-          collection: 'pages',
+          collection: 'services',
           req,
         }),
     },
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: data?.slug as string,
-        collection: 'pages',
+        collection: 'services',
         req,
       }),
     useAsTitle: 'title',
@@ -70,16 +70,12 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       type: 'tabs',
       tabs: [
-        // {
-        //   fields: [hero],
-        //   label: 'Hero',
-        // },
         {
           fields: [
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MainHero, Services, Slider, Info, NewsPreview, ContactForm, CallToAction, Content, MediaBlock, Archive /*, FormBlock */],
+              blocks: [MainHero, ServicesBlock, Slider, Info, NewsPreview, ContactForm, CallToAction, Content, MediaBlock, Archive],
               required: true,
               admin: {
                 initCollapsed: true,
@@ -103,13 +99,9 @@ export const Pages: CollectionConfig<'pages'> = {
             MetaImageField({
               relationTo: 'media',
             }),
-
             MetaDescriptionField({}),
             PreviewField({
-              // if the `generateUrl` function is configured
               hasGenerateFn: true,
-
-              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
@@ -127,14 +119,14 @@ export const Pages: CollectionConfig<'pages'> = {
     slugField,
   ],
   hooks: {
-    afterChange: [revalidatePage],
+    afterChange: [revalidateService],
     beforeChange: [populatePublishedAt],
-    afterDelete: [revalidateDelete],
+    afterDelete: [revalidateServiceDelete],
   },
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 100,
       },
       schedulePublish: true,
     },

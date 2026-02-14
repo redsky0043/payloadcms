@@ -12,9 +12,10 @@ import { Icon } from '@/components/Icon'
 
 interface HeaderClientProps {
   data: Header
+  services?: { slug: string; title: string }[]
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, services = [] }) => {
   /* Storing the value in a useState to avoid hydration errors */
   // const [theme, setTheme] = useState<string | null>(null)
   // const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -39,7 +40,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             <Icon name="icon-logo" width={132} height={30} className="header__img"/>
           </Link>
           <div className="header__nav">
-            <HeaderNav data={data} />
+            <HeaderNav data={data} services={services} />
           </div>
           <Link className="header__button button--header button" href="#contacts">
             Send a request

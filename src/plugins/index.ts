@@ -10,17 +10,26 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 // import { searchFields } from '@/search/fieldOverrides'
 // import { beforeSyncWithSearch } from '@/search/beforeSync'
 
-import { Page, Post } from '@/payload-types'
+import { Page, Post, Service } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
+const generateTitle: GenerateTitle<Post | Page | Service> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page | Service> = ({ doc, collectionSlug }) => {
   const url = getServerSideURL()
+  if (!doc?.slug) return url
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+  const slug = Array.isArray(doc.slug) ? doc.slug.join('/') : doc.slug
+  const basePath =
+    collectionSlug === 'services'
+      ? 'services'
+      : collectionSlug === 'posts'
+        ? 'posts'
+        : ''
+
+  return basePath ? `${url}/${basePath}/${slug}` : `${url}/${slug}`
 }
 
 export const plugins: Plugin[] = [

@@ -70,6 +70,8 @@ export interface Config {
     pages: Page;
     posts: Post;
     media: Media;
+    services: Service;
+    'form-submissions': FormSubmission;
     users: User;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
@@ -87,6 +89,8 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -147,7 +151,18 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout: (MainHeroBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock)[];
+  layout: (
+    | MainHeroBlock
+    | ServicesBlock
+    | SliderBlock
+    | InfoBlock
+    | NewsPreviewBlock
+    | ContactFormBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -313,24 +328,89 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
+ * via the `definition` "ServicesBlock".
  */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+export interface ServicesBlock {
+  headline: string;
+  /**
+   * Select services from the Services collection to display in the grid.
+   */
+  services: (number | Service)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'services';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  title: string;
+  layout: (
+    | MainHeroBlock
+    | ServicesBlock
+    | SliderBlock
+    | InfoBlock
+    | NewsPreviewBlock
+    | ContactFormBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+  )[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * URL-адреса сторінки (генерується автоматично з заголовка)
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock".
+ */
+export interface SliderBlock {
+  headline: string;
+  /**
+   * Slider items with title, description and image.
+   */
+  slides: {
+    title: string;
+    about: string;
+    image: number | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'slider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InfoBlock".
+ */
+export interface InfoBlock {
+  /**
+   * Image on the left side
+   */
+  image: number | Media;
+  /**
+   * Text above the button
+   */
+  bannerText: string;
+  /**
+   * Button link (e.g. "Learn More")
+   */
   links?:
     | {
         link: {
@@ -347,17 +427,24 @@ export interface CallToActionBlock {
               } | null);
           url?: string | null;
           label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
     | null;
+  /**
+   * Heading on the right side
+   */
+  title: string;
+  /**
+   * List items for the right column
+   */
+  listItems: {
+    item: string;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'cta';
+  blockType: 'info';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -431,6 +518,105 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsPreviewBlock".
+ */
+export interface NewsPreviewBlock {
+  title: string;
+  /**
+   * Link for "All news" (e.g. to /posts)
+   */
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsPreview';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock".
+ */
+export interface ContactFormBlock {
+  headline: string;
+  successTitle?: string | null;
+  successSubtitle?: string | null;
+  loadingTitle?: string | null;
+  errorTitle?: string | null;
+  errorSubtitle?: string | null;
+  buttonText?: string | null;
+  termsUrl?: string | null;
+  privacyUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock".
+ */
+export interface CallToActionBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -524,6 +710,19 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -640,10 +839,15 @@ export interface PayloadJob {
  */
 export interface PayloadLockedDocument {
   id: number;
-  document?: {
-    relationTo: 'payload-folders';
-    value: number | FolderInterface;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'form-submissions';
+        value: number | FormSubmission;
+      } | null)
+    | ({
+        relationTo: 'payload-folders';
+        value: number | FolderInterface;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -696,6 +900,11 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         mainHero?: T | MainHeroBlockSelect<T>;
+        services?: T | ServicesBlockSelect<T>;
+        slider?: T | SliderBlockSelect<T>;
+        info?: T | InfoBlockSelect<T>;
+        newsPreview?: T | NewsPreviewBlockSelect<T>;
+        contactForm?: T | ContactFormBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -723,6 +932,104 @@ export interface MainHeroBlockSelect<T extends boolean = true> {
   bannerText?: T;
   buttonText?: T;
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesBlock_select".
+ */
+export interface ServicesBlockSelect<T extends boolean = true> {
+  headline?: T;
+  services?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock_select".
+ */
+export interface SliderBlockSelect<T extends boolean = true> {
+  headline?: T;
+  slides?:
+    | T
+    | {
+        title?: T;
+        about?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InfoBlock_select".
+ */
+export interface InfoBlockSelect<T extends boolean = true> {
+  image?: T;
+  bannerText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  title?: T;
+  listItems?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsPreviewBlock_select".
+ */
+export interface NewsPreviewBlockSelect<T extends boolean = true> {
+  title?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock_select".
+ */
+export interface ContactFormBlockSelect<T extends boolean = true> {
+  headline?: T;
+  successTitle?: T;
+  successSubtitle?: T;
+  loadingTitle?: T;
+  errorTitle?: T;
+  errorSubtitle?: T;
+  buttonText?: T;
+  termsUrl?: T;
+  privacyUrl?: T;
   id?: T;
   blockName?: T;
 }
@@ -923,6 +1230,51 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        mainHero?: T | MainHeroBlockSelect<T>;
+        services?: T | ServicesBlockSelect<T>;
+        slider?: T | SliderBlockSelect<T>;
+        info?: T | InfoBlockSelect<T>;
+        newsPreview?: T | NewsPreviewBlockSelect<T>;
+        contactForm?: T | ContactFormBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -1046,12 +1398,20 @@ export interface Header {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
               } | null);
           url?: string | null;
           label: string;
         };
         /**
-         * Add sub-menu items that will appear in a dropdown
+         * Use 'Services collection' to auto-populate dropdown from Services
+         */
+        dropdownSource?: ('manual' | 'services') | null;
+        /**
+         * Add sub-menu items (used when Dropdown source is Manual)
          */
         subItems?:
           | {
@@ -1132,6 +1492,7 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        dropdownSource?: T;
         subItems?:
           | T
           | {
@@ -1195,6 +1556,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'services';
+          value: number | Service;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
