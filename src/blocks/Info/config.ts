@@ -9,6 +9,7 @@ export const Info: Block = {
     singular: 'Info',
     plural: 'Info',
   },
+  imageURL: '/block-previews/info.png',
   fields: [
     {
       name: 'image',

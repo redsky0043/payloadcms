@@ -28,13 +28,15 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{ slug?: string }>
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function ServicePage({ params: paramsPromise }: Args) {
+export default async function ServicePage({ params: paramsPromise, searchParams }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
   const service = await queryServiceBySlug({ slug: decodedSlug })
+  const resolvedSearchParams = await searchParams
 
   if (!service) {
     return null
@@ -48,7 +50,11 @@ export default async function ServicePage({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderBlocks blocks={layout} />
+      <RenderBlocks
+        blocks={layout}
+        searchParams={resolvedSearchParams}
+        pathname={`/services/${decodedSlug}`}
+      />
     </main>
   )
 }

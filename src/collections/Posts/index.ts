@@ -1,19 +1,18 @@
 import type { CollectionConfig } from 'payload'
 
 import {
-  BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
-  HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Banner } from '../../blocks/Banner/config'
-import { Code } from '../../blocks/Code/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { CallToAction } from '../../blocks/CallToAction/config'
+import { ContactForm } from '../../blocks/ContactForm/config'
+import { NewsPreview } from '../../blocks/NewsPreview/config'
+import { TextBanner } from '../../blocks/TextBanner/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -89,16 +88,24 @@ export const Posts: CollectionConfig<'posts'> = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
                   ]
                 },
               }),
               label: false,
               required: true,
+            },
+            {
+              name: 'layout',
+              type: 'blocks',
+              label: 'Blocks below article',
+              admin: {
+                description: 'News preview, contact form, etc. Shown under the article content.',
+                initCollapsed: true,
+              },
+              blocks: [NewsPreview, ContactForm, CallToAction, TextBanner],
             },
           ],
           label: 'Content',

@@ -6,8 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 
 import FormInputText from '@/components/FormInputText'
+import { Media as MediaComponent } from '@/components/Media'
 import contactFormSchema, { type ContactFormData } from './validation'
 import type { ContactFormBlock as ContactFormBlockProps } from '@/payload-types'
+import type { Media } from '@/payload-types'
 
 type Props = ContactFormBlockProps & {
   className?: string
@@ -24,8 +26,13 @@ export const ContactFormBlock: React.FC<Props> = ({
   buttonText = 'Send',
   termsUrl = '/terms-of-use',
   privacyUrl = '/privacy-policy',
+  backgroundImage,
   className,
 }) => {
+  const bgImage =
+    typeof backgroundImage === 'object' && backgroundImage
+      ? (backgroundImage as Media)
+      : null
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -95,7 +102,15 @@ export const ContactFormBlock: React.FC<Props> = ({
       <section className={`contact-form ${className ?? ''}`.trim()} id="contacts">
         <div className="container">
           <div className="contact-form__wrapper">
-            <div className="contact-form__bg" />
+            {bgImage && (
+              <div className="contact-form__bg">
+                <MediaComponent
+                  resource={bgImage}
+                  pictureClassName=""
+                  imgClassName=""
+                />
+              </div>
+            )}
             <form
               onSubmit={handleSubmit(onSubmit)}
               className={`contact-form__form ${loading ? 'contact-form__form--loading' : ''} ${isError ? 'contact-form__form--failed' : ''} ${isSuccess ? 'contact-form__form--loaded' : ''}`}

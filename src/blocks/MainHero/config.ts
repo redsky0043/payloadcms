@@ -4,6 +4,7 @@ import type { Block } from 'payload'
 export const MainHero: Block = {
   slug: 'mainHero',
   interfaceName: 'MainHeroBlock',
+  imageURL: '/block-previews/main-hero.png',
   fields: [
     {
         name: 'richText',

@@ -62,10 +62,11 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
-      max: 2, // Maximum number of connections in pool (Supabase free tier limit is 3)
-      min: 0, // Minimum number of connections (don't keep connections open)
-      idleTimeoutMillis: 5000, // Close idle connections after 5 seconds
-      connectionTimeoutMillis: 30000, // Timeout when connecting to database (30 seconds)
+      max: 2, // Supabase free tier: max 3 connections total
+      min: 1, // Keep 1 connection warm to avoid cold connects
+      idleTimeoutMillis: 60000, // 60s — keep connections alive longer
+      connectionTimeoutMillis: 20000, // 20s — fail faster if DB unreachable
+      allowExitOnIdle: false, // Prevent pool shutdown when idle (reduces "Reconnecting")
     },
   }),
   collections: [Pages, Posts, Media, Services, FormSubmissions, /* Categories, */ Users],

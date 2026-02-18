@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { About } from '../../blocks/About/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
@@ -11,8 +12,11 @@ import { MainHero } from '../../blocks/MainHero/config'
 import { Services } from '../../blocks/Services/config'
 import { Info } from '../../blocks/Info/config'
 import { ContactForm } from '../../blocks/ContactForm/config'
+import { NewsGrid } from '../../blocks/NewsGrid/config'
 import { NewsPreview } from '../../blocks/NewsPreview/config'
 import { Slider } from '../../blocks/Slider/config'
+import { TextBanner } from '../../blocks/TextBanner/config'
+import { TopImageBlock } from '../../blocks/TopImageBlock/config'
 // import { hero } from '@/components/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -79,7 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MainHero, Services, Slider, Info, NewsPreview, ContactForm, CallToAction, Content, MediaBlock, Archive /*, FormBlock */],
+              blocks: [MainHero, TopImageBlock, About, Services, Slider, Info, NewsPreview, NewsGrid, ContactForm, CallToAction, Content, MediaBlock, TextBanner, Archive /*, FormBlock */],
               required: true,
               admin: {
                 initCollapsed: true,

@@ -153,14 +153,18 @@ export interface Page {
   title: string;
   layout: (
     | MainHeroBlock
+    | TopImageBlock
+    | AboutBlock
     | ServicesBlock
     | SliderBlock
     | InfoBlock
     | NewsPreviewBlock
+    | NewsGridBlock
     | ContactFormBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
+    | TextBannerBlock
     | ArchiveBlock
   )[];
   meta?: {
@@ -328,6 +332,27 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopImageBlock".
+ */
+export interface TopImageBlock {
+  image: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'topImageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock".
+ */
+export interface AboutBlock {
+  title: string;
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ServicesBlock".
  */
 export interface ServicesBlock {
@@ -349,14 +374,18 @@ export interface Service {
   title: string;
   layout: (
     | MainHeroBlock
+    | TopImageBlock
+    | AboutBlock
     | ServicesBlock
     | SliderBlock
     | InfoBlock
     | NewsPreviewBlock
+    | NewsGridBlock
     | ContactFormBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
+    | TextBannerBlock
     | ArchiveBlock
   )[];
   meta?: {
@@ -469,6 +498,10 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  /**
+   * News preview, contact form, etc. Shown under the article content.
+   */
+  layout?: (NewsPreviewBlock | ContactFormBlock | CallToActionBlock | TextBannerBlock)[] | null;
   relatedPosts?: (number | Post)[] | null;
   meta?: {
     title?: string | null;
@@ -493,31 +526,6 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -566,6 +574,10 @@ export interface ContactFormBlock {
   buttonText?: string | null;
   termsUrl?: string | null;
   privacyUrl?: string | null;
+  /**
+   * Image behind the form (e.g. contact-form__bg)
+   */
+  backgroundImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contactForm';
@@ -617,6 +629,87 @@ export interface CallToActionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBannerBlock".
+ */
+export interface TextBannerBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsGridBlock".
+ */
+export interface NewsGridBlock {
+  title: string;
+  /**
+   * Tags for filtering (e.g. All, News, blog, events)
+   */
+  tags?:
+    | {
+        label: string;
+        /**
+         * e.g. /posts or /posts?category=news
+         */
+        href: string;
+        isActive?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * URL path for pagination links (e.g. /posts or /news)
+   */
+  basePath?: string | null;
+  /**
+   * Number of posts to show per page
+   */
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -900,14 +993,18 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         mainHero?: T | MainHeroBlockSelect<T>;
+        topImageBlock?: T | TopImageBlockSelect<T>;
+        about?: T | AboutBlockSelect<T>;
         services?: T | ServicesBlockSelect<T>;
         slider?: T | SliderBlockSelect<T>;
         info?: T | InfoBlockSelect<T>;
         newsPreview?: T | NewsPreviewBlockSelect<T>;
+        newsGrid?: T | NewsGridBlockSelect<T>;
         contactForm?: T | ContactFormBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        textBanner?: T | TextBannerBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
       };
   meta?:
@@ -932,6 +1029,25 @@ export interface MainHeroBlockSelect<T extends boolean = true> {
   bannerText?: T;
   buttonText?: T;
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TopImageBlock_select".
+ */
+export interface TopImageBlockSelect<T extends boolean = true> {
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutBlock_select".
+ */
+export interface AboutBlockSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }
@@ -1018,6 +1134,25 @@ export interface NewsPreviewBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsGridBlock_select".
+ */
+export interface NewsGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  tags?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        isActive?: T;
+        id?: T;
+      };
+  basePath?: T;
+  limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContactFormBlock_select".
  */
 export interface ContactFormBlockSelect<T extends boolean = true> {
@@ -1030,6 +1165,7 @@ export interface ContactFormBlockSelect<T extends boolean = true> {
   buttonText?: T;
   termsUrl?: T;
   privacyUrl?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -1094,6 +1230,15 @@ export interface MediaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBannerBlock_select".
+ */
+export interface TextBannerBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
@@ -1113,6 +1258,14 @@ export interface PostsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
+  layout?:
+    | T
+    | {
+        newsPreview?: T | NewsPreviewBlockSelect<T>;
+        contactForm?: T | ContactFormBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        textBanner?: T | TextBannerBlockSelect<T>;
+      };
   relatedPosts?: T;
   meta?:
     | T
@@ -1238,14 +1391,18 @@ export interface ServicesSelect<T extends boolean = true> {
     | T
     | {
         mainHero?: T | MainHeroBlockSelect<T>;
+        topImageBlock?: T | TopImageBlockSelect<T>;
+        about?: T | AboutBlockSelect<T>;
         services?: T | ServicesBlockSelect<T>;
         slider?: T | SliderBlockSelect<T>;
         info?: T | InfoBlockSelect<T>;
         newsPreview?: T | NewsPreviewBlockSelect<T>;
+        newsGrid?: T | NewsGridBlockSelect<T>;
         contactForm?: T | ContactFormBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        textBanner?: T | TextBannerBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
       };
   meta?:
@@ -1565,42 +1722,6 @@ export interface TaskSchedulePublish {
     user?: (number | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

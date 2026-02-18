@@ -63,5 +63,14 @@ export const ContactForm: Block = {
       label: 'Privacy policy URL',
       defaultValue: '/privacy-policy',
     },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Background image',
+      admin: {
+        description: 'Image behind the form (e.g. contact-form__bg)',
+      },
+    },
   ],
 }

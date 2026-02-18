@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Link from 'next/link'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -36,7 +34,7 @@ export async function NewsPreviewBlock(props: Props) {
     draft: false,
     depth: 1,
     limit: LIMIT,
-    overrideAccess: false,
+    overrideAccess: true,
     pagination: false,
     sort: '-publishedAt',
     where: {

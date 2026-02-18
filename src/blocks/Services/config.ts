@@ -7,6 +7,7 @@ export const Services: Block = {
     singular: 'Services',
     plural: 'Services',
   },
+  imageURL: '/block-previews/services.png',
   fields: [
     {
       name: 'headline',

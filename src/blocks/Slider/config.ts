@@ -7,6 +7,7 @@ export const Slider: Block = {
     singular: 'Slider',
     plural: 'Sliders',
   },
+  imageURL: '/block-previews/slider.png',
   fields: [
     {
       name: 'headline',
