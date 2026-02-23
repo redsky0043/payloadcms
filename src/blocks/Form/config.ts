@@ -14,7 +14,8 @@ export const FormBlock: Block = {
     {
       name: 'form',
       type: 'relationship',
-      relationTo: 'forms',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'forms' collection may be added later
+      relationTo: 'forms' as any,
       required: true,
     },
     {

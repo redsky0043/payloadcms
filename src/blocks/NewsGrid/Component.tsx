@@ -58,7 +58,7 @@ export async function NewsGridBlock(props: Props) {
     collection: 'posts',
     draft: false,
     depth: 1,
-    limit,
+    limit: limit ?? undefined,
     page: currentPage,
     overrideAccess: true,
     sort: '-publishedAt',
@@ -78,9 +78,9 @@ export async function NewsGridBlock(props: Props) {
       <section className={`news ${className ?? ''}`.trim()}>
         <div className="container">
           <h1 className="h1 news__title">{title}</h1>
-          {tags.length > 0 && (
+          {(tags?.length ?? 0) > 0 && (
             <div className="news__tags">
-              {tags.map((tag, i) => (
+              {(tags ?? []).map((tag, i) => (
                 <Link
                   key={tag.id ?? i}
                   href={tag.href}

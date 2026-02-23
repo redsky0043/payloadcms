@@ -60,7 +60,7 @@ export default async function Post({ params: paramsPromise }: Args) {
       <PageClient />
       {draft && <LivePreviewListener />}
 
-      <ArticleTop post={post}>
+      <ArticleTop doc={post} tagLabel="Blog">
         <div className="article__content">
           <ArticleAside headings={headings} />
           <ArticleContent content={post.content} />

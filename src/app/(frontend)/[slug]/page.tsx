@@ -8,6 +8,10 @@ import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { ArticleAside } from '@/components/Article/ArticleAside'
+import { ArticleContent } from '@/components/Article/ArticleContent'
+import { ArticleTop } from '@/components/Article/ArticleTop'
+import { parseArticleSections } from '@/utilities/parseArticleSections'
 // import { RenderHero } from '@/components/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
@@ -65,23 +69,46 @@ export default async function Page({ params: paramsPromise, searchParams }: Args
     return null
   }
 
-  // const { hero, layout } = page
-  const { layout } = page
+  const { layout, useArticleLayout, content, articleTag } = page
+
+  const useArticle = Boolean(useArticleLayout && content?.root?.children?.length)
+
+  const sections = useArticle ? parseArticleSections(content) : []
+  const headings = sections
+    .filter((s) => s.title)
+    .map((s) => ({ id: s.id, title: s.title }))
 
   return (
     <main className="">
       <PageClient />
-      {/* Allows redirects for valid pages too */}
-      {/* <PayloadRedirects disableNotFound url={url} /> */}
-
       {draft && <LivePreviewListener />}
 
-      {/* <RenderHero {...hero} /> */}
-      <RenderBlocks
-        blocks={layout}
-        searchParams={resolvedSearchParams}
-        pathname={`/${decodedSlug}`}
-      />
+      {useArticle ? (
+        <>
+          <ArticleTop
+            doc={page}
+            tagLabel={articleTag ?? undefined}
+          >
+            <div className="article__content">
+              <ArticleAside headings={headings} />
+              <ArticleContent content={content} />
+            </div>
+          </ArticleTop>
+          {layout && layout.length > 0 ? (
+            <RenderBlocks
+              blocks={layout}
+              searchParams={resolvedSearchParams}
+              pathname={`/${decodedSlug}`}
+            />
+          ) : null}
+        </>
+      ) : (
+        <RenderBlocks
+          blocks={layout ?? []}
+          searchParams={resolvedSearchParams}
+          pathname={`/${decodedSlug}`}
+        />
+      )}
     </main>
   )
 }

@@ -17,11 +17,17 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
+  customUrlRequired?: boolean
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  appearances,
+  customUrlRequired = true,
+  disableLabel = false,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -85,7 +91,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
       label: 'Custom URL',
-      required: true,
+      required: customUrlRequired,
     },
   ]
 

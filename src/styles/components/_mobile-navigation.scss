@@ -2,19 +2,25 @@
 
 .mobile-navigation {
   @include make-spacer(p, 3);
-  @include size(rem(300px), auto);
+  @include size(rem(300px), 100%);
   @include flex(flex-start, end);
+  @include transition(transform);
 
   position: fixed;
   inset: 0 0 0 auto;
   transform: translateX(100%);
   z-index: map-get($z-indexes, mobile);
   color: var(--grey-dark);
-  background-color: var(--white);
+  background-color: transparent;
+  pointer-events: none;
 
+  .header.is-menu-opened & {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
 
   @include media-breakpoint-up(md) {
-    @include size(rem(440px), auto);
+    @include size(rem(440px), 100%);
   }
 
   &__wrapper {

@@ -151,45 +151,14 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout: (
-    | MainHeroBlock
-    | TopImageBlock
-    | AboutBlock
-    | ServicesBlock
-    | SliderBlock
-    | InfoBlock
-    | NewsPreviewBlock
-    | NewsGridBlock
-    | ContactFormBlock
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | TextBannerBlock
-    | ArchiveBlock
-  )[];
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
   /**
-   * URL-адреса сторінки (генерується автоматично з заголовка)
+   * Main image at the top. Falls back to SEO image if empty.
    */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MainHeroBlock".
- */
-export interface MainHeroBlock {
-  richText?: {
+  heroImage?: (number | null) | Media;
+  /**
+   * Article body. Headings (h2) are used for the table of contents.
+   */
+  content?: {
     root: {
       type: string;
       children: {
@@ -204,12 +173,51 @@ export interface MainHeroBlock {
     };
     [k: string]: unknown;
   } | null;
-  bannerText?: string | null;
-  buttonText?: string | null;
-  media?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mainHero';
+  /**
+   * Optional label next to the title (e.g. "Careers", "Job openings").
+   */
+  articleTag?: string | null;
+  /**
+   * When Article layout is enabled, these blocks are shown below the article content. Otherwise they are the main page content.
+   */
+  layout?:
+    | (
+        | MainHeroBlock
+        | TopImageBlock
+        | AboutBlock
+        | ServicesBlock
+        | SliderBlock
+        | InfoBlock
+        | NewsPreviewBlock
+        | NewsGridBlock
+        | ContactFormBlock
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | TextBannerBlock
+        | ArchiveBlock
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * URL-адреса сторінки (генерується автоматично з заголовка)
+   */
+  slug: string;
+  /**
+   * Show this page as an article: title, hero image, table of contents, and rich text content (like a blog post).
+   */
+  useArticleLayout?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -329,6 +337,33 @@ export interface FolderInterface {
   folderType?: 'media'[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MainHeroBlock".
+ */
+export interface MainHeroBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  bannerText?: string | null;
+  buttonText?: string | null;
+  media?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mainHero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -534,7 +569,7 @@ export interface Post {
 export interface NewsPreviewBlock {
   title: string;
   /**
-   * Link for "All news" (e.g. to /posts)
+   * Link for "All news" (e.g. to /posts). Leave empty to use /posts.
    */
   links?:
     | {
@@ -989,6 +1024,9 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  heroImage?: T;
+  content?: T;
+  articleTag?: T;
   layout?:
     | T
     | {
@@ -1016,6 +1054,7 @@ export interface PagesSelect<T extends boolean = true> {
       };
   publishedAt?: T;
   slug?: T;
+  useArticleLayout?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

@@ -1,12 +1,5 @@
 import type { Metadata } from 'next'
 
-import { Nunito_Sans } from 'next/font/google'
-
-const nunitoSans = Nunito_Sans({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-nunito-sans',
-})
 import React from 'react'
 
 import { Footer } from '@/components/Footer/Component'
@@ -20,11 +13,20 @@ import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className={nunitoSans.variable} lang="en" suppressHydrationWarning>
+    <html
+      className="font-nunito-sans"
+      lang="en"
+      style={{ ['--font-nunito-sans' as string]: "'Nunito Sans', Helvetica, Arial, sans-serif" }}
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <Providers>

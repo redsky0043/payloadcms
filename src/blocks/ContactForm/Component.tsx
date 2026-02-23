@@ -145,11 +145,11 @@ export const ContactFormBlock: React.FC<Props> = ({
                   />
                   <div className="checkbox__text">
                     I agree with{' '}
-                    <Link className="underline underline--reverse" href={termsUrl}>
+                    <Link className="underline underline--reverse" href={termsUrl ?? '#'}>
                       Terms of use
                     </Link>{' '}
                     and{' '}
-                    <Link className="underline underline--reverse" href={privacyUrl}>
+                    <Link className="underline underline--reverse" href={privacyUrl ?? '#'}>
                       Privacy policy
                     </Link>
                   </div>

@@ -1,6 +1,8 @@
 @use '../config' as *;
 
 .slider {
+  position: relative;
+
   @include make-spacer(mt, 9);
   @include make-spacer(mb, 11);
   @include make-spacer(my, 17, md);
@@ -149,11 +151,23 @@
 
     margin-top: rem(-90px);
     z-index: map-get($z-indexes, cursor);
-    z-index: 500;
     position: relative;
 
     @include media-breakpoint-up(xl) {
-      display: none;
+      margin-top: 0;
+      margin-left: 0;
+      margin-right: 0;
+
+      &:not(.circle--moved) {
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      &.circle--moved {
+        pointer-events: auto;
+      }
     }
   }
 }

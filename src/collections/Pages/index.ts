@@ -1,5 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
+
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { About } from '../../blocks/About/config'
@@ -74,23 +81,52 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       type: 'tabs',
       tabs: [
-        // {
-        //   fields: [hero],
-        //   label: 'Hero',
-        // },
         {
+          label: 'Content',
           fields: [
+            {
+              name: 'heroImage',
+              type: 'upload',
+              relationTo: 'media',
+              admin: {
+                condition: (data) => Boolean(data?.useArticleLayout),
+                description: 'Main image at the top. Falls back to SEO image if empty.',
+              },
+            },
+            {
+              name: 'content',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => [
+                  ...rootFeatures,
+                  HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+                  FixedToolbarFeature(),
+                  InlineToolbarFeature(),
+                ],
+              }),
+              admin: {
+                condition: (data) => Boolean(data?.useArticleLayout),
+                description: 'Article body. Headings (h2) are used for the table of contents.',
+              },
+            },
+            {
+              name: 'articleTag',
+              type: 'text',
+              admin: {
+                condition: (data) => Boolean(data?.useArticleLayout),
+                description: 'Optional label next to the title (e.g. "Careers", "Job openings").',
+              },
+            },
             {
               name: 'layout',
               type: 'blocks',
               blocks: [MainHero, TopImageBlock, About, Services, Slider, Info, NewsPreview, NewsGrid, ContactForm, CallToAction, Content, MediaBlock, TextBanner, Archive /*, FormBlock */],
-              required: true,
               admin: {
                 initCollapsed: true,
+                description: 'When Article layout is enabled, these blocks are shown below the article content. Otherwise they are the main page content.',
               },
             },
           ],
-          label: 'Content',
         },
         {
           name: 'meta',
@@ -129,10 +165,19 @@ export const Pages: CollectionConfig<'pages'> = {
       },
     },
     slugField,
+    {
+      name: 'useArticleLayout',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Show this page as an article: title, hero image, table of contents, and rich text content (like a blog post).',
+      },
+    },
   ],
   hooks: {
-    afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt],
+    afterChange: [revalidatePage],
     afterDelete: [revalidateDelete],
   },
   versions: {

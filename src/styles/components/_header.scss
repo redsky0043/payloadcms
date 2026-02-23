@@ -96,18 +96,45 @@
     }
   }
 
+  &__backdrop {
+    @include transition(#{opacity, visibility});
+
+    position: fixed;
+    inset: 0;
+    z-index: map-get($z-indexes, headerOverlay);
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    .header.is-menu-opened & {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
   &__overlay {
-    @include size(rem(300px), var(--header-height));
+    @include size(rem(300px), 100%);
+    @include transition(transform);
 
     position: fixed;
     inset: 0 0 0 auto;
     z-index: map-get($z-indexes, headerOverlay);
     transform: translateX(100%);
     background-color: var(--white);
-    content: '';
+
+    .header.is-menu-opened & {
+      transform: translateX(0);
+    }
 
     @include media-breakpoint-up(md) {
-      @include size(rem(440px), var(--header-height));
+      @include size(rem(440px), 100%);
 
       inset: rem(32px) 0 0 auto;
     }

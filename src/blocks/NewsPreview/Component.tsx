@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import type { NewsPreviewBlock as NewsPreviewBlockProps } from '@/payload-types'
@@ -44,6 +45,11 @@ export async function NewsPreviewBlock(props: Props) {
 
   const posts = (result.docs ?? []) as Post[]
   const allNewsLink = links?.[0]?.link
+  const hasValidLink =
+    allNewsLink &&
+    (allNewsLink.type === 'reference'
+      ? allNewsLink.reference?.value
+      : allNewsLink.type === 'custom' && allNewsLink.url)
 
   return (
     <section className={`news-preview ${className ?? ''}`.trim()}>
@@ -51,7 +57,7 @@ export async function NewsPreviewBlock(props: Props) {
         <div className="news-preview__headline">
           <h2 className="news-preview__title">{title ?? 'News and blog'}</h2>
           <div className="news-preview__subtitle">
-            {allNewsLink ? (
+            {hasValidLink ? (
               <CMSLink
                 {...allNewsLink}
                 label={null}
@@ -98,7 +104,9 @@ export async function NewsPreviewBlock(props: Props) {
                     className="card__date"
                     dateTime={
                       post.publishedAt || post.createdAt
-                        ? new Date((post.publishedAt ?? post.createdAt) as string).toISOString().slice(0, 10)
+                        ? new Date((post.publishedAt ?? post.createdAt) as string)
+                            .toISOString()
+                            .slice(0, 10)
                         : undefined
                     }
                   >

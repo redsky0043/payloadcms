@@ -19,10 +19,11 @@ export const NewsPreview: Block = {
     },
     linkGroup({
       appearances: false,
+      customUrlRequired: false,
       overrides: {
         maxRows: 1,
         admin: {
-          description: 'Link for "All news" (e.g. to /posts)',
+          description: 'Link for "All news" (e.g. to /posts). Leave empty to use /posts.',
         },
       },
     }),

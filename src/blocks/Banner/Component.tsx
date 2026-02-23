@@ -1,8 +1,12 @@
-import type { BannerBlock as BannerBlockProps } from 'src/payload-types'
-
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
+
+export type BannerBlockProps = {
+  style?: 'info' | 'warning' | 'error' | 'success'
+  content?: DefaultTypedEditorState | null
+}
 
 type Props = {
   className?: string
@@ -19,7 +23,7 @@ export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
           'border-warning bg-warning/30': style === 'warning',
         })}
       >
-        <RichText data={content} enableGutter={false} enableProse={false} />
+        {content ? <RichText data={content} enableGutter={false} enableProse={false} /> : null}
       </div>
     </div>
   )

@@ -119,7 +119,7 @@
   }
 
   &__content {
-    @include make-spacer(mt, 10);
+    @include make-spacer(mt, 5);
     @include font-size(21px, 32px);
     @include flex(center, flex-start, column);
 
@@ -130,6 +130,8 @@
     }
 
     &_left {
+      @include make-spacer(mt, 5);
+      
       width: 100%;
       position: relative;
       align-self: flex-start;
