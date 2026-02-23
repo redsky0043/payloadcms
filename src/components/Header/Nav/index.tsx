@@ -25,7 +25,7 @@ export const HeaderNav: React.FC<Props> = ({ data, services = [], className, onN
           const hasManualSubItems = navItem.subItems && navItem.subItems.length > 0
           const hasServices = useServicesDropdown && services.length > 0
           const hasSubItems = hasManualSubItems || hasServices
-          const hasLink = navItem.link?.reference || navItem.link?.url
+          const _hasLink = navItem.link?.reference || navItem.link?.url
 
           if (hasSubItems) {
             return (

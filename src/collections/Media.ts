@@ -1,9 +1,23 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  BlockquoteFeature,
+  ChecklistFeature,
+  EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
+  InlineCodeFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  OrderedListFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  UnorderedListFeature,
+  UploadFeature,
+  AlignFeature,
+  IndentFeature,
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -35,7 +49,25 @@ export const Media: CollectionConfig = {
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+          return [
+            ...rootFeatures,
+            HeadingFeature(),
+            AlignFeature(),
+            IndentFeature(),
+            UnorderedListFeature(),
+            OrderedListFeature(),
+            ChecklistFeature(),
+            BlockquoteFeature(),
+            HorizontalRuleFeature(),
+            InlineCodeFeature(),
+            StrikethroughFeature(),
+            SubscriptFeature(),
+            SuperscriptFeature(),
+            UploadFeature(),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+            EXPERIMENTAL_TableFeature(),
+          ]
         },
       }),
     },

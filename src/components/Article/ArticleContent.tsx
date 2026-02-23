@@ -4,7 +4,6 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import RichText from '@/components/RichText'
 
-import type { ArticleSection } from '@/utilities/parseArticleSections'
 import { parseArticleSections } from '@/utilities/parseArticleSections'
 
 type Props = {

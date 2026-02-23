@@ -17,9 +17,9 @@ export interface FormInputTextProps {
 export const FormInputText: FC<FormInputTextProps> = ({
   name,
   label,
-  helperText,
+  _helperText,
   rows = null,
-  checkbox = false,
+  _checkbox = false,
   type = 'text',
   disabled = false,
   multiline = false,

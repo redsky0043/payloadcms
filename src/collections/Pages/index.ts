@@ -1,10 +1,23 @@
 import type { CollectionConfig } from 'payload'
 
 import {
+  BlockquoteFeature,
+  ChecklistFeature,
+  EXPERIMENTAL_TableFeature,
   FixedToolbarFeature,
   HeadingFeature,
+  HorizontalRuleFeature,
+  InlineCodeFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  OrderedListFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  UnorderedListFeature,
+  UploadFeature,
+  AlignFeature,
+  IndentFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '../../access/authenticated'
@@ -99,9 +112,22 @@ export const Pages: CollectionConfig<'pages'> = {
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => [
                   ...rootFeatures,
-                  HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+                  HeadingFeature(),
+                  AlignFeature(),
+                  IndentFeature(),
+                  UnorderedListFeature(),
+                  OrderedListFeature(),
+                  ChecklistFeature(),
+                  BlockquoteFeature(),
+                  HorizontalRuleFeature(),
+                  InlineCodeFeature(),
+                  StrikethroughFeature(),
+                  SubscriptFeature(),
+                  SuperscriptFeature(),
+                  UploadFeature(),
                   FixedToolbarFeature(),
                   InlineToolbarFeature(),
+                  EXPERIMENTAL_TableFeature(),
                 ],
               }),
               admin: {
