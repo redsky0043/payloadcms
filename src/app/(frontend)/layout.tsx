@@ -5,7 +5,6 @@ import React from 'react'
 import { Footer } from '@/components/Footer/Component'
 import { Header } from '@/components/Header/Component'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
 import '@/styles/app.scss'
@@ -17,10 +16,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className="font-nunito-sans"
       lang="en"
       style={{ ['--font-nunito-sans' as string]: "'Nunito Sans', Helvetica, Arial, sans-serif" }}
-      suppressHydrationWarning
     >
       <head>
-        <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <link

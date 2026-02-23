@@ -1,6 +1,29 @@
-import { RequiredDataFromCollectionSlug } from 'payload'
+/** Shape for form seed data; `forms` collection is not in config (formBuilderPlugin disabled). */
+interface ContactFormSeedData {
+  confirmationMessage: { root: Record<string, unknown> }
+  confirmationType: string
+  createdAt: string
+  emails: Array<{
+    emailFrom: string
+    emailTo: string
+    message: { root: Record<string, unknown> }
+    subject: string
+  }>
+  fields: Array<{
+    name: string
+    blockName: string
+    blockType: string
+    label: string
+    required: boolean
+    width: number
+  }>
+  redirect: undefined
+  submitButtonLabel: string
+  title: string
+  updatedAt: string
+}
 
-export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
+export const contactForm: ContactFormSeedData = {
   confirmationMessage: {
     root: {
       type: 'root',
@@ -85,14 +108,6 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       blockType: 'email',
       label: 'Email',
       required: true,
-      width: 100,
-    },
-    {
-      name: 'phone',
-      blockName: 'phone',
-      blockType: 'number',
-      label: 'Phone',
-      required: false,
       width: 100,
     },
     {

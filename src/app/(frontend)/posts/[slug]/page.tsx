@@ -10,7 +10,6 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 
-import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { generateMeta } from '@/utilities/generateMeta'
 
@@ -57,7 +56,6 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <main>
-      <PageClient />
       {draft && <LivePreviewListener />}
 
       <ArticleTop doc={post} tagLabel="Blog">

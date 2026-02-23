@@ -9,6 +9,15 @@ export const ContactForm: Block = {
   },
   fields: [
     {
+      name: 'banner',
+      type: 'text',
+      label: 'Banner text',
+      required: false,
+      admin: {
+        description: 'Optional text above the form (e.g. contact-form__banner)',
+      },
+    },
+    {
       name: 'headline',
       type: 'text',
       label: 'Headline',
@@ -52,16 +61,13 @@ export const ContactForm: Block = {
       defaultValue: 'Send',
     },
     {
-      name: 'termsUrl',
+      name: 'policyUrl',
       type: 'text',
-      label: 'Terms of use URL',
-      defaultValue: '/terms-of-use',
-    },
-    {
-      name: 'privacyUrl',
-      type: 'text',
-      label: 'Privacy policy URL',
-      defaultValue: '/privacy-policy',
+      label: 'Policy page URL',
+      defaultValue: '/policy',
+      admin: {
+        description: 'Link for "policy checkbox" in the consent text',
+      },
     },
     {
       name: 'backgroundImage',

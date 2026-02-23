@@ -600,6 +600,10 @@ export interface NewsPreviewBlock {
  * via the `definition` "ContactFormBlock".
  */
 export interface ContactFormBlock {
+  /**
+   * Optional text above the form (e.g. contact-form__banner)
+   */
+  banner?: string | null;
   headline: string;
   successTitle?: string | null;
   successSubtitle?: string | null;
@@ -607,8 +611,10 @@ export interface ContactFormBlock {
   errorTitle?: string | null;
   errorSubtitle?: string | null;
   buttonText?: string | null;
-  termsUrl?: string | null;
-  privacyUrl?: string | null;
+  /**
+   * Link for "policy checkbox" in the consent text
+   */
+  policyUrl?: string | null;
   /**
    * Image behind the form (e.g. contact-form__bg)
    */
@@ -847,7 +853,6 @@ export interface FormSubmission {
   id: number;
   name: string;
   email: string;
-  phone: string;
   message: string;
   updatedAt: string;
   createdAt: string;
@@ -1195,6 +1200,7 @@ export interface NewsGridBlockSelect<T extends boolean = true> {
  * via the `definition` "ContactFormBlock_select".
  */
 export interface ContactFormBlockSelect<T extends boolean = true> {
+  banner?: T;
   headline?: T;
   successTitle?: T;
   successSubtitle?: T;
@@ -1202,8 +1208,7 @@ export interface ContactFormBlockSelect<T extends boolean = true> {
   errorTitle?: T;
   errorSubtitle?: T;
   buttonText?: T;
-  termsUrl?: T;
-  privacyUrl?: T;
+  policyUrl?: T;
   backgroundImage?: T;
   id?: T;
   blockName?: T;
@@ -1464,7 +1469,6 @@ export interface ServicesSelect<T extends boolean = true> {
 export interface FormSubmissionsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
-  phone?: T;
   message?: T;
   updatedAt?: T;
   createdAt?: T;

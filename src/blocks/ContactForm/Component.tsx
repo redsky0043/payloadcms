@@ -14,6 +14,10 @@ import type { Media } from '@/payload-types'
 type Props = ContactFormBlockProps & {
   className?: string
   disableInnerContainer?: boolean
+  policyUrl?: string | null
+  termsUrl?: string | null
+  privacyUrl?: string | null
+  banner?: string | null
 }
 
 export const ContactFormBlock: React.FC<Props> = ({
@@ -24,11 +28,14 @@ export const ContactFormBlock: React.FC<Props> = ({
   errorTitle = 'Something went wrong',
   errorSubtitle = 'Sorry, please try submitting the form later.',
   buttonText = 'Send',
-  termsUrl = '/terms-of-use',
-  privacyUrl = '/privacy-policy',
+  policyUrl: policyUrlProp,
+  termsUrl,
+  privacyUrl,
+  banner,
   backgroundImage,
   className,
 }) => {
+  const policyUrl = policyUrlProp ?? termsUrl ?? privacyUrl ?? '/policy'
   const bgImage =
     typeof backgroundImage === 'object' && backgroundImage
       ? (backgroundImage as Media)
@@ -101,6 +108,9 @@ export const ContactFormBlock: React.FC<Props> = ({
     <FormProvider {...methods}>
       <section className={`contact-form ${className ?? ''}`.trim()} id="contacts">
         <div className="container">
+          {banner && (
+            <div className="contact-form__banner">{banner}</div>
+          )}
           <div className="contact-form__wrapper">
             {bgImage && (
               <div className="contact-form__bg">
@@ -119,24 +129,17 @@ export const ContactFormBlock: React.FC<Props> = ({
               <div className="contact-form__actions">
                 <div className="contact-form__inputs">
                   <label className="textfield">
-                    <FormInputText name="name" label="Your name" />
+                    <FormInputText name="name" label="Name*" />
                   </label>
                   <label className="textfield">
-                    <FormInputText name="email" label="Email address" />
-                  </label>
-                  <label className="textfield">
-                    <FormInputText
-                      type="tel"
-                      name="phone"
-                      label="Phone number"
-                    />
+                    <FormInputText name="email" label="E-mail*" />
                   </label>
                   <label className="textfield textfield--textarea">
-                    <FormInputText rows={3} name="message" label="Your message" />
+                    <FormInputText rows={3} name="message" label="Your message*" />
                   </label>
                 </div>
                 <label
-                  className={`checkbox contact-form__checkbox ${errors.terms ? 'has-error' : ''}`}
+                  className={`checkbox contact-form__checkbox js-checkbox ${errors.terms ? 'has-error' : ''}`}
                 >
                   <input
                     className="checkbox__mark"
@@ -144,15 +147,25 @@ export const ContactFormBlock: React.FC<Props> = ({
                     {...register('terms')}
                   />
                   <div className="checkbox__text">
-                    I agree with{' '}
-                    <Link className="underline underline--reverse" href={termsUrl ?? '#'}>
-                      Terms of use
-                    </Link>{' '}
-                    and{' '}
-                    <Link className="underline underline--reverse" href={privacyUrl ?? '#'}>
-                      Privacy policy
+                    I consent to the processing of personal data, according to the{' '}
+                    <Link
+                      className="checkbox__link"
+                      href={policyUrl ?? '#'}
+                      rel="noopener noreferrer nofollow"
+                    >
+                      policy checkbox
                     </Link>
                   </div>
+                </label>
+                <label
+                  className={`checkbox checkbox--small contact-form__checkbox ${errors.mailing ? 'has-error' : ''}`}
+                >
+                  <input
+                    className="checkbox__mark"
+                    type="checkbox"
+                    {...register('mailing')}
+                  />
+                  <div className="checkbox__text">I want to subscribe to the newsletter</div>
                 </label>
                 <button
                   type="submit"

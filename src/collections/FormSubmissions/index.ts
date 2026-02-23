@@ -26,11 +26,6 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
       required: true,
     },
     {
-      name: 'phone',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'message',
       type: 'textarea',
       required: true,

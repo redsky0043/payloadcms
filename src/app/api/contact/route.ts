@@ -16,7 +16,6 @@ export async function POST(request: Request) {
     const data = {
       name: String(formData.get('name') ?? '').trim(),
       email: String(formData.get('email') ?? '').trim(),
-      phone: String(formData.get('phone') ?? '').trim(),
       message: String(formData.get('message') ?? '').trim(),
     }
 
@@ -26,7 +25,6 @@ export async function POST(request: Request) {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
       violations.push({ propertyPath: 'email', title: 'Invalid email format' })
     }
-    if (!data.phone) violations.push({ propertyPath: 'phone', title: 'Phone is required' })
     if (!data.message) violations.push({ propertyPath: 'message', title: 'Message is required' })
 
     if (violations.length > 0) {
@@ -43,10 +41,9 @@ export async function POST(request: Request) {
       data: {
         name: data.name,
         email: data.email,
-        phone: data.phone,
         message: data.message,
       },
-    })
+    } as Parameters<typeof payload.create>[0])
 
     const contactEmail = process.env.CONTACT_EMAIL
     const fromEmail = process.env.CONTACT_FROM ?? 'onboarding@resend.dev'
@@ -60,7 +57,6 @@ export async function POST(request: Request) {
           <h2>New contact form submission</h2>
           <p><strong>Name:</strong> ${data.name}</p>
           <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>Phone:</strong> ${data.phone}</p>
           <p><strong>Message:</strong></p>
           <p>${data.message.replace(/\n/g, '<br>')}</p>
         `,

@@ -14,7 +14,6 @@ import { ArticleTop } from '@/components/Article/ArticleTop'
 import { parseArticleSections } from '@/utilities/parseArticleSections'
 // import { RenderHero } from '@/components/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
-import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
@@ -80,7 +79,6 @@ export default async function Page({ params: paramsPromise, searchParams }: Args
 
   return (
     <main className="">
-      <PageClient />
       {draft && <LivePreviewListener />}
 
       {useArticle ? (
