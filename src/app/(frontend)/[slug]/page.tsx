@@ -16,27 +16,29 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const pages = await payload.find({
+      collection: 'pages',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+      },
     })
 
-  return params
+    const params = pages.docs
+      ?.filter((doc) => doc.slug !== 'home')
+      .map(({ slug }) => ({ slug })) ?? []
+
+    return params
+  } catch (err) {
+    // БД недоступна під час білду або міграції не виконані (напр. Vercel) — сторінки згенеруються при першому запиті
+    console.warn('[generateStaticParams] pages:', (err as Error)?.cause ?? err)
+    return []
+  }
 }
 
 type Args = {

@@ -11,19 +11,21 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const services = await payload.find({
-    collection: 'services',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  return (services.docs ?? []).map(({ slug }) => ({ slug }))
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const services = await payload.find({
+      collection: 'services',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: { slug: true },
+    })
+    return (services.docs ?? []).map(({ slug }) => ({ slug }))
+  } catch (err) {
+    console.warn('[generateStaticParams] services:', (err as Error)?.cause ?? err)
+    return []
+  }
 }
 
 type Args = {
