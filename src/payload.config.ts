@@ -61,8 +61,7 @@ export default buildConfig({
   editor: defaultLexical,
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
-      options: '-c search_path=public',
+      connectionString: (process.env.DATABASE_URL || '').replace('-pooler', ''),
       max: 2, // Supabase free tier: max 3 connections total
       min: 1, // Keep 1 connection warm to avoid cold connects
       idleTimeoutMillis: 60000, // 60s — keep connections alive longer
