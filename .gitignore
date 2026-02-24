@@ -6,6 +6,9 @@ node_modules
 .next
 .vercel
 
+# JetBrains IDE
+.idea/
+
 # Payload default media upload directory
 public/media/
 

@@ -1,10 +1,6 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const TextBanner: Block = {
   slug: 'textBanner',

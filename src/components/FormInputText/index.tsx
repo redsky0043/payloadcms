@@ -12,6 +12,8 @@ export interface FormInputTextProps {
   restProps?: Record<string, unknown>
   disabled?: boolean
   multiline?: boolean
+  _helperText?: string | unknown
+  _checkbox?: boolean
 }
 
 export const FormInputText: FC<FormInputTextProps> = ({

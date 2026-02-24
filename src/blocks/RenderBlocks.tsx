@@ -55,15 +55,16 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
+              const blockProps = {
+                ...block,
+                disableInnerContainer: true,
+                searchParams,
+                pathname,
+              }
               return (
                 <Fragment key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block
-                    {...block}
-                    disableInnerContainer
-                    searchParams={searchParams}
-                    pathname={pathname}
-                  />
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- block props union is incompatible per blockType */}
+                  <Block {...(blockProps as any)} />
                 </Fragment>
               )
             }

@@ -5,7 +5,6 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Plugin } from 'payload'
 // import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { Page, Post, Service } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'

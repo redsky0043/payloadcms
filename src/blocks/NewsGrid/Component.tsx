@@ -51,7 +51,7 @@ export async function NewsGridBlock(props: Props) {
         ? pageParam
         : 1
 
-  const paginationBase = pathname ?? basePath
+  const paginationBase = pathname ?? basePath ?? '/posts'
 
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({

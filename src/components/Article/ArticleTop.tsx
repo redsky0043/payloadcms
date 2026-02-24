@@ -41,7 +41,6 @@ export const ArticleTop: React.FC<Props> = ({ doc, tagLabel, children }) => {
             imgClassName=""
           />
         ) : (
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/img/stone.webp" alt="" />
         )}
       </div>

@@ -49,8 +49,8 @@ export const Card: React.FC<{
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {
-                  if (typeof category === 'object') {
-                    const { title: titleFromCategory } = category
+                  if (typeof category === 'object' && category !== null && 'title' in category) {
+                    const { title: titleFromCategory } = category as { title?: string }
 
                     const categoryTitle = titleFromCategory || 'Untitled category'
 

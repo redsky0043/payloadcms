@@ -12,7 +12,6 @@ import { ArticleAside } from '@/components/Article/ArticleAside'
 import { ArticleContent } from '@/components/Article/ArticleContent'
 import { ArticleTop } from '@/components/Article/ArticleTop'
 import { parseArticleSections } from '@/utilities/parseArticleSections'
-// import { RenderHero } from '@/components/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -51,7 +50,6 @@ export default async function Page({ params: paramsPromise, searchParams }: Args
   const resolvedSearchParams = await searchParams
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
 
   page = await queryPageBySlug({
